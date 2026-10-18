@@ -1,0 +1,345 @@
+@import "tailwindcss";
+
+/* Images and fonts contain no class names; skipping them also stops the dev server erroring when an
+   asset is renamed or deleted */
+@source not "./assets";
+
+/* Desktop screens tall enough to show the whole hero slide with nothing peeking in below it */
+@custom-variant tall (@media (min-width: 1024px) and (min-height: 900px));
+
+/* Design tokens from the Figma file's "Basic/*" styles */
+@theme {
+  --color-pink: #e2006a;
+  --color-blue: #1aa5f6;
+  --color-purple: #753fe9;
+  --color-dark-gray: #808080;
+  --color-light-gray: #c5c5c5;
+
+  --color-page: #0d0f22;
+  --color-surface: #16152f;
+  --color-tile: #1d1c2f;
+  --color-accent-border: #e6baf2;
+  --color-accent-border-soft: #ebc8f5;
+
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-label: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Suez One", ui-serif, Georgia, serif;
+
+  /* Case-study previews. Euclid Circular A and Avenir Next Condensed are licensed fonts, so
+     visitors without them get the closest free match (Outfit, Barlow Condensed). */
+  --font-case: "Alan Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-case-display: "Euclid Circular A", "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-condensed: "Avenir Next Condensed", "Barlow Condensed", ui-sans-serif, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-page);
+}
+
+body {
+  margin: 0;
+  background: var(--color-page);
+  color: var(--color-light-gray);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Highlight text: "Product"/"Experience" in the hero title.
+   Figma positions the gradient relative to each word's own box, so the CSS angle depends on the
+   word's shape: set --gradient-angle per element (Product 146.11deg, Experience 153.95deg). */
+@utility gradient-text {
+  background: linear-gradient(0deg, rgb(182 216 241 / 0.52), rgb(182 216 241 / 0.52)),
+    linear-gradient(var(--gradient-angle, 150deg), #fb45e3 -24.15%, #925fff 26.96%, #e2008f 113.07%);
+  background-blend-mode: hard-light, normal;
+  font-weight: 500;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Glass surface for tiles, cards and nav buttons. Active/selected items swap the
+   border colour through --glass-border so no utility-ordering fights. */
+@utility glass {
+  background: var(--glass-bg, rgb(255 255 255 / 0.05));
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border, rgb(255 255 255 / 0.1));
+  box-shadow: 0 8px 32px rgb(0 0 0 / 0.3);
+}
+
+@utility glass-panel {
+  background: var(--glass-bg, rgb(255 255 255 / 0.05));
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border, rgb(255 255 255 / 0.1));
+  box-shadow: 0 8px 32px rgb(0 0 0 / 0.3);
+  border-radius: var(--glass-radius, 20px);
+  padding: 30px;
+}
+
+
+/* ---------------------------------------------------------------------------
+   Dock: the hero nav pinned to the bottom of the viewport once the hero is out
+   of view. Interactions follow the macOS project's dock.css; tiles, colours
+   and type follow the Figma nav.
+   --------------------------------------------------------------------------- */
+@keyframes dockPop {
+  0% { transform: translateY(0) scale(1); }
+  45% { transform: translateY(-16px) scale(1.12); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* Behind the dock: a dark gradient plus a blur, both fading out towards the top */
+.dock-backdrop {
+  background: linear-gradient(to top, rgb(8 9 22 / 0.85), rgb(8 9 22 / 0.5) 45%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  mask-image: linear-gradient(to top, #000 35%, transparent);
+}
+
+.dock-container {
+  --dock-icon-size: 30px;
+  /* glyph size inside each tile: what the hero's 60% ratio gave on the old 36px / 52px tiles */
+  --dock-glyph-size: 21.6px;
+  --dock-padding-x: 12px;
+  --dock-gap: 22px;
+
+  display: flex;
+  align-items: flex-end;
+  gap: var(--dock-gap);
+  padding: var(--dock-padding-y) var(--dock-padding-x);
+  --dock-padding-y: 10px;
+  border-radius: 20px;
+  background: rgb(22 21 47 / 0.55);
+  border: 1px solid rgb(235 200 245 / 0.18);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.35);
+  backdrop-filter: blur(13px);
+  -webkit-backdrop-filter: blur(13px);
+}
+
+@media (min-width: 1024px) {
+  .dock-container {
+    --dock-icon-size: 44px;
+    --dock-glyph-size: 31.2px;
+    --dock-padding-x: 28px;
+    --dock-padding-y: 14px;
+    --dock-gap: 24px;
+  }
+}
+
+.dock-item {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex: 0 0 var(--dock-icon-size);
+  width: var(--dock-icon-size);
+  user-select: none;
+  transition: margin 0.2s ease;
+}
+
+/* icon above its label; the label is wider than the icon, so it overflows evenly either side */
+.dock-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  outline: none;
+}
+
+.dock-label {
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgb(255 255 255 / 0.4);
+  transition: color 0.2s ease;
+}
+
+.dock-link:hover .dock-label,
+.dock-link:focus-visible .dock-label,
+.dock-link[aria-current] .dock-label {
+  color: #fff;
+}
+
+@media (min-width: 1024px) {
+  .dock-label {
+    font-size: 10px;
+    letter-spacing: 0.02em;
+  }
+}
+
+.dock-item-hovered {
+  margin: 0 8px;
+}
+
+.dock-icon {
+  display: flex;
+  width: var(--dock-icon-size);
+  height: var(--dock-icon-size);
+  transform-origin: center bottom;
+  transition: transform 0.2s ease;
+  outline: none;
+}
+
+/* Denser glass than the hero buttons so the tiles read against the dock panel */
+.dock-tile {
+  --glass-bg: rgb(255 255 255 / 0.14);
+}
+
+/* Tighter tiles than the hero's, with the glyphs kept at a fixed size (the inactive photo icon is
+   drawn a little smaller, as in the hero: 53.3% against 60%) */
+.dock-tile img {
+  width: var(--dock-glyph-size);
+  height: var(--dock-glyph-size);
+}
+
+.dock-tile img[data-icon="photo"]:not(.opacity-100) {
+  width: calc(var(--dock-glyph-size) * 0.888);
+  height: calc(var(--dock-glyph-size) * 0.888);
+}
+
+.dock-link:focus-visible .dock-tile {
+  outline: 2px solid rgb(255 255 255 / 0.86);
+  outline-offset: 4px;
+}
+
+.dock-link:active .dock-tile {
+  animation: dockPop 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dock-icon,
+  .dock-item {
+    transition: none;
+  }
+  .dock-link:active .dock-tile {
+    animation: none;
+  }
+}
+
+/* Scroll cue: a gentle downward bob */
+@keyframes scrollCue {
+  0%, 100% { transform: translateY(0); opacity: 0.55; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+
+.animate-scroll-cue {
+  animation: scrollCue 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll-cue {
+    animation: none;
+    opacity: 0.8;
+  }
+}
+
+/* "Opens in a new window" pointer: a thin arrow-out-of-box glyph (stroked like the carousel arrows)
+   on a translucent disc, hotspot at its centre */
+@utility cursor-new-window {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Ccircle cx='22' cy='22' r='21' fill='%230d0f22' fill-opacity='.45' stroke='%23c5c5c5' stroke-opacity='.4'/%3E%3Cg fill='none' stroke='%23f2f2f2' stroke-width='1.2'%3E%3Cpath d='M20 15.5h-5v13h13v-5'/%3E%3Cpath d='M23 15h6v6M29 15l-8.5 8.5'/%3E%3C/g%3E%3C/svg%3E") 22 22, pointer;
+}
+
+/* Horizontal scrollers that are driven by their own controls */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Centred content column: at most --container-max wide, never closer than the gutter to the
+   viewport edges. Narrowing the column (rather than padding it) keeps the Figma positions inside. */
+@utility site-container {
+  --gutter: 16px;
+  margin-inline: auto;
+  width: min(var(--container-max, 1024px), 100% - 2 * var(--gutter));
+  @media (min-width: 1024px) {
+    --gutter: 40px;
+  }
+}
+
+/* Name lockup: all outlines draw in together, then the fills fade in (see NameLockup) */
+.name-lockup svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.name-lockup[data-animate] path {
+  stroke: #f9f9f9;
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+  stroke-dasharray: var(--len);
+  stroke-dashoffset: var(--len);
+  fill-opacity: 0;
+  animation:
+    name-draw 1.8s cubic-bezier(0.35, 0, 0.35, 1) 0.15s forwards,
+    name-fill 0.5s ease-out 1.95s forwards;
+}
+
+@keyframes name-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes name-fill {
+  to {
+    fill-opacity: 1;
+    stroke-opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .name-lockup[data-animate] path {
+    animation: none;
+    stroke: none;
+    fill-opacity: 1;
+  }
+}
+
+/* Client logos: an endless, slowly scrolling strip (see ClientLogos) */
+.logo-marquee {
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+.logo-marquee-track {
+  /* duration and direction are set per strip in ClientLogos */
+  animation: logo-marquee 30s linear infinite;
+}
+
+.logo-marquee:hover .logo-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes logo-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee {
+    mask-image: none;
+  }
+  .logo-marquee-track {
+    animation: none;
+    width: auto;
+  }
+  .logo-marquee-list {
+    flex-shrink: 1;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 1.5rem;
+    padding-inline: 16px;
+  }
+  .logo-marquee-list[aria-hidden] {
+    display: none;
+  }
+}

@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="1485" height="148" viewBox="0 0 1485 148" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- Figma: Group 633261 > Vector 17 — the glowing line, drawn in front of the portrait -->
+<path id="Vector 17" d="M58.4414 127.5H1414.57" stroke="url(#paint0_linear_0_306)"/>
+<defs>
+<linearGradient id="paint0_linear_0_306" x1="58.4414" y1="128" x2="1414.57" y2="128" gradientUnits="userSpaceOnUse">
+<stop offset="0.0144231" stop-color="white" stop-opacity="0"/>
+<stop offset="0.245192" stop-color="white"/>
+<stop offset="0.75" stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg>

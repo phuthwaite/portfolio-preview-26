@@ -1,0 +1,35 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="1485" height="148" viewBox="0 0 1485 148" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- Figma: Group 633261 (glow only; the line itself is hero-line-stroke.svg, drawn in front of the portrait). The export's zero-radius group filter (y 107–148) clipped the glow to a thin
+     strip; it's removed here so the glow renders in full above the line, as in Figma. -->
+<mask id="mask0_0_306" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="1485" height="127">
+<rect width="1485" height="127" fill="url(#glowFade)"/>
+</mask>
+<g mask="url(#mask0_0_306)">
+<g opacity="0.33" filter="url(#filter1_f_0_306)">
+<ellipse cx="272.965" cy="33.8927" rx="272.965" ry="33.8927" transform="matrix(1 -5.61157e-08 -1.02733e-07 -1 566.176 219.496)" fill="#E2006A"/>
+</g>
+<g opacity="0.5" filter="url(#filter2_f_0_306)">
+<ellipse cx="326.533" cy="55.7728" rx="326.533" ry="55.7728" transform="matrix(1 -5.98326e-08 -1.19413e-07 -1 411.883 251.807)" fill="#1AA5F6"/>
+</g>
+<g opacity="0.5" filter="url(#filter3_f_0_306)">
+<ellipse cx="367.99" cy="43.7602" rx="367.99" ry="43.7602" transform="matrix(1 -5.17414e-08 -6.2172e-08 -1 321.836 223.52)" fill="#753FE9"/>
+</g>
+</g>
+<defs>
+<filter id="filter1_f_0_306" x="337.08" y="-77.3859" width="1004.12" height="525.978" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feGaussianBlur stdDeviation="114.548"/>
+</filter>
+<filter id="filter2_f_0_306" x="182.787" y="-88.8351" width="1111.26" height="569.738" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feGaussianBlur stdDeviation="114.548"/>
+</filter>
+<filter id="filter3_f_0_306" x="92.7398" y="-93.0961" width="1194.17" height="545.713" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feGaussianBlur stdDeviation="114.548"/>
+</filter>
+<!-- fades the glow in from the top so it has no hard upper edge (Figma's mask was a solid 90% rect) -->
+<linearGradient id="glowFade" x1="0" y1="0" x2="0" y2="127" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#D9D9D9" stop-opacity="0"/>
+<stop offset="0.7" stop-color="#D9D9D9" stop-opacity="0.9"/>
+<stop offset="1" stop-color="#D9D9D9" stop-opacity="0.9"/>
+</linearGradient>
+</defs>
+</svg>
