@@ -244,6 +244,15 @@ body {
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Ccircle cx='22' cy='22' r='21' fill='%230d0f22' fill-opacity='.45' stroke='%23c5c5c5' stroke-opacity='.4'/%3E%3Cg fill='none' stroke='%23f2f2f2' stroke-width='1.2'%3E%3Cpath d='M20 15.5h-5v13h13v-5'/%3E%3Cpath d='M23 15h6v6M29 15l-8.5 8.5'/%3E%3C/g%3E%3C/svg%3E") 22 22, pointer;
 }
 
+/* Design work: widens the card track out to the viewport's right edge (--fade-w is the gap between
+   the content column and that edge; see site-container) and fades the cards out across it */
+.design-track-fade {
+  --fade-w: max(0px, (100vw - min(var(--container-max, 1024px), 100vw - 2 * var(--gutter, 16px))) / 2);
+  margin: -40px calc(-1 * var(--fade-w)) -40px 0;
+  padding: 40px var(--fade-w) 40px 0;
+  mask-image: linear-gradient(to right, #000 calc(100% - var(--fade-w)), transparent);
+}
+
 /* Horizontal scrollers that are driven by their own controls */
 @utility no-scrollbar {
   scrollbar-width: none;

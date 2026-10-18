@@ -61,7 +61,8 @@ export default function DesignWork() {
                   style={{
                     transform: `translateX(${(i - position) * 100}%) scale(${0.4 + 0.6 * p})`,
                     opacity: p,
-                    backgroundImage: "linear-gradient(to bottom, rgb(255 255 255 / 0.22), rgb(255 255 255 / 0.03))",
+                    backgroundImage:
+                      "linear-gradient(to bottom, rgb(255 255 255 / 0.22), rgb(255 255 255 / 0.03))",
                     backgroundClip: "text",
                     WebkitBackgroundClip: "text",
                     color: "transparent",
@@ -73,48 +74,52 @@ export default function DesignWork() {
             })}
           </div>
 
-          {/* Cards: the draggable track */}
-          <div
-            {...bind}
-            className="@container relative cursor-grab touch-pan-y select-none [clip-path:inset(-40px_-100vw_-40px_0)] active:cursor-grabbing lg:pl-[140px] lg:[clip-path:inset(-40px_-100vw_-40px_140px)]"
-          >
+          {/* Cards: the draggable track, inside a strip that reaches the viewport's right edge so the
+              next card can fade out towards it (as the client logos do) */}
+          <div className="design-track-fade">
             <div
-              className="flex [--card-w:100cqw] lg:[--card-w:882px]"
-              style={{ gap: GAP, transform: `translateX(calc(${-position} * (var(--card-w) + ${GAP}px)))` }}
+              {...bind}
+              className="@container relative cursor-grab touch-pan-y select-none [clip-path:inset(-40px_-100vw_-40px_0)] active:cursor-grabbing lg:pl-[140px] lg:[clip-path:inset(-40px_-100vw_-40px_140px)]"
             >
-              {designWork.map((item, i) => {
-                const p = progressOf(i, position);
-                return (
-                  <button
-                    key={i}
-                    ref={i === 0 ? firstCard : undefined}
-                    type="button"
-                    tabIndex={-1}
-                    aria-label={`${item.client}: ${item.alt}`}
-                    aria-hidden={i !== index}
-                    onClick={() => !wasDragged() && goTo(i)}
-                    className={`glass-panel relative aspect-[882/499] w-(--card-w) shrink-0 overflow-hidden transition-[border-color] [--glass-radius:0] ${
-                      i === index ? "[--glass-border:var(--color-accent-border)]" : ""
-                    }`}
-                    style={{ opacity: 0.44 + 0.56 * p }}
-                  >
-                    {/* Image zooms from 1.5x to 1x as the card settles (momentum-slider "images") */}
-                    <span
-                      className="absolute inset-0 block"
-                      style={{ transform: `scale(${1.5 - 0.5 * p})` }}
+              <div
+                className="flex [--card-w:100cqw] lg:[--card-w:882px]"
+                style={{
+                  gap: GAP,
+                  transform: `translateX(calc(${-position} * (var(--card-w) + ${GAP}px)))`,
+                }}
+              >
+                {designWork.map((item, i) => {
+                  const p = progressOf(i, position);
+                  return (
+                    <button
+                      key={i}
+                      ref={i === 0 ? firstCard : undefined}
+                      type="button"
+                      tabIndex={-1}
+                      aria-label={`${item.client}: ${item.alt}`}
+                      aria-hidden={i !== index}
+                      onClick={() => !wasDragged() && goTo(i)}
+                      className="glass-panel relative aspect-[882/499] w-(--card-w) shrink-0 overflow-hidden [--glass-radius:0]"
+                      style={{ opacity: 0.44 + 0.56 * p }}
                     >
-                      <img
-                        src={item.image}
-                        alt={item.alt}
-                        loading="lazy"
-                        decoding="async"
-                        draggable={false}
-                        className={`size-full ${item.fit === "contain" ? "object-contain p-4 lg:p-6" : "object-cover object-top"}`}
-                      />
-                    </span>
-                  </button>
-                );
-              })}
+                      {/* Image zooms from 1.5x to 1x as the card settles (momentum-slider "images") */}
+                      <span
+                        className="absolute inset-0 block"
+                        style={{ transform: `scale(${1.5 - 0.5 * p})` }}
+                      >
+                        <img
+                          src={item.image}
+                          alt={item.alt}
+                          loading="lazy"
+                          decoding="async"
+                          draggable={false}
+                          className={`size-full ${item.fit === "contain" ? "object-contain p-4 lg:p-6" : "object-cover object-top"}`}
+                        />
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
@@ -132,8 +137,12 @@ export default function DesignWork() {
                     opacity: progressOf(i, position),
                   }}
                 >
-                  <Label>{item.year ? `${item.client} · ${item.year}` : item.client}</Label>
-                  <p className="text-base leading-6 text-light-gray">{item.description}</p>
+                  <Label>
+                    {item.year ? `${item.client} · ${item.year}` : item.client}
+                  </Label>
+                  <p className="text-base leading-6 text-light-gray">
+                    {item.description}
+                  </p>
                 </div>
               );
             })}
@@ -145,8 +154,13 @@ export default function DesignWork() {
           {/* Figma: pips + nav */}
           <div className="mt-6 flex h-[74px] items-end gap-4 lg:mt-4 lg:gap-10 lg:pl-[140px]">
             {/* 31 dots don't fit a phone, so small screens get a counter instead */}
-            <p aria-hidden className="flex h-[54px] flex-1 items-center font-label text-base tracking-[0.04em] text-dark-gray lg:hidden">
-              <span className="text-white">{String(index + 1).padStart(2, "0")}</span>
+            <p
+              aria-hidden
+              className="flex h-[54px] flex-1 items-center font-label text-base tracking-[0.04em] text-dark-gray lg:hidden"
+            >
+              <span className="text-white">
+                {String(index + 1).padStart(2, "0")}
+              </span>
               &nbsp;/&nbsp;{count}
             </p>
             <div className="hidden h-[54px] flex-1 items-center justify-between lg:flex lg:px-6">
@@ -159,7 +173,12 @@ export default function DesignWork() {
                   onClick={() => goTo(i)}
                   className="flex size-5 items-center justify-center"
                 >
-                  <img src={i === index ? pipActive : pip} alt="" width={9} height={8} />
+                  <img
+                    src={i === index ? pipActive : pip}
+                    alt=""
+                    width={9}
+                    height={8}
+                  />
                 </button>
               ))}
             </div>
