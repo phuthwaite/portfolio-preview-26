@@ -19,7 +19,11 @@ function Name() {
         aria-label="Hear how to pronounce my name"
         className="absolute top-[60.8%] left-[98.8%] flex size-[28px] items-center justify-center rounded-2xl lg:size-[25px] bg-[rgb(13_13_13/0.5)] transition-colors hover:bg-white/10"
       >
-        <img src={audioPng} alt="" className="h-[14px] w-[16.39px] object-cover opacity-50 lg:h-[12.6px] lg:w-[14.75px]" />
+        <img
+          src={audioPng}
+          alt=""
+          className="h-[14px] w-[16.39px] object-cover opacity-50 lg:h-[12.6px] lg:w-[14.75px]"
+        />
       </button>
     </div>
   );
@@ -30,9 +34,13 @@ function Title() {
   return (
     <p className="flex flex-wrap items-center justify-center gap-x-[0.2em] text-[clamp(16px,4.8vw,24px)] leading-[normal] tracking-[-0.02em] text-white lg:justify-start lg:text-[clamp(22px,2.43vw,36.77px)]">
       <span>Digital</span>
-      <span className="gradient-text [--gradient-angle:146.11deg]">Product</span>
+      <span className="gradient-text [--gradient-angle:146.11deg]">
+        Product
+      </span>
       <span>&amp;</span>
-      <span className="gradient-text [--gradient-angle:153.95deg]">Experience</span>
+      <span className="gradient-text [--gradient-angle:153.95deg]">
+        Experience
+      </span>
       <span>Designer</span>
     </p>
   );
@@ -42,9 +50,18 @@ function Title() {
 // The hero is the starting point rather than a section, so none of its items is shown as active.
 function Nav() {
   return (
-    <nav aria-label="Sections" className="flex items-start justify-center gap-4 lg:justify-start lg:gap-[18.72px]">
+    <nav
+      aria-label="Sections"
+      className="flex items-start justify-center gap-4 lg:justify-start lg:gap-[18.72px]"
+    >
       {navItems.map((item) => (
-        <a key={item.id} href={`#${item.id}`} className="group flex flex-col items-center gap-[10px] lg:gap-[9px]">
+        <a
+          key={item.id}
+          href={`#${item.id}`}
+          data-umami-event="hero-nav-click"
+          data-umami-event-section={item.id}
+          className="group flex flex-col items-center gap-[10px] lg:gap-[9px]"
+        >
           {/* row keeps the height of the (larger) active tile so the layout doesn't shift */}
           <span className="flex h-[60px] items-center lg:h-[70.2px]">
             <NavTile
@@ -68,7 +85,10 @@ const SHOW_PORTRAIT = true;
 
 export default function Hero() {
   return (
-    <header id="hero" className="relative mt-[33px] overflow-hidden lg:h-[613px]">
+    <header
+      id="hero"
+      className="relative mt-[33px] overflow-hidden lg:h-[613px]"
+    >
       {/* Figma: the line's glow — behind the portrait */}
       <img
         src={heroGlowSvg}
@@ -79,7 +99,9 @@ export default function Hero() {
       {/* small screens: bottom padding leaves room for the portrait, which stands behind the text */}
       <div
         className={`site-container relative flex flex-col pt-16 lg:block lg:min-h-0 lg:pt-0 lg:pb-0 ${
-          SHOW_PORTRAIT ? "min-h-[calc(min(92vw,480px)*1.26+40px)] justify-end pb-6" : ""
+          SHOW_PORTRAIT
+            ? "min-h-[calc(min(92vw,480px)*1.26+40px)] justify-end pb-6"
+            : ""
         }`}
       >
         {/* Figma: portrait */}

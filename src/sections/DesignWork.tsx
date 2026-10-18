@@ -1,4 +1,4 @@
-import { useRef, type KeyboardEvent } from "react";
+import { useEffect, useRef, type KeyboardEvent } from "react";
 import SectionHeading from "../components/SectionHeading";
 import { Label } from "../components/Widget";
 import pip from "../assets/pip.svg";
@@ -6,6 +6,7 @@ import pipActive from "../assets/pip-active.svg";
 import carouselNav from "../assets/carousel-nav.svg";
 import { designWork } from "../data/content";
 import { progressOf, useMomentumSlider } from "../hooks/useMomentumSlider";
+import { trackOnce } from "../lib/analytics";
 
 const GAP = 40; // px between cards (Figma: item → next item)
 
@@ -22,6 +23,13 @@ export default function DesignWork() {
     count,
     () => (firstCard.current?.offsetWidth ?? 882) + GAP,
   );
+
+  // which slides people move on to (the first is counted by "section-reached")
+  const firstRender = useRef(true);
+  useEffect(() => {
+    if (firstRender.current) return void (firstRender.current = false);
+    trackOnce("design-viewed", { item: `${index + 1} ${designWork[index].client}` });
+  }, [index]);
 
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.key === "ArrowRight") goTo(index + 1);

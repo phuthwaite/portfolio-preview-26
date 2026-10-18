@@ -1,4 +1,5 @@
 import {
+  useEffect,
   useRef,
   type CSSProperties,
   type KeyboardEvent,
@@ -15,6 +16,7 @@ import pipActive from "../assets/pip-active.svg";
 import carouselNav from "../assets/carousel-nav.svg";
 import { caseStudies, type CaseStudy } from "../data/content";
 import { progressOf, useMomentumSlider } from "../hooks/useMomentumSlider";
+import { trackOnce } from "../lib/analytics";
 
 // Show the stats column on each slide (hidden for now; the data stays in content.ts)
 const SHOW_STATS = false;
@@ -91,6 +93,8 @@ function CaseStudyPreview({
           {/* Figma: cta */}
           <a
             href={study.href}
+            data-umami-event="case-study-read-more"
+            data-umami-event-study={study.id}
             target="_blank"
             rel="noopener noreferrer"
             className="group cursor-new-window mt-9 inline-flex flex-col pt-1 text-(--accent)"
@@ -143,6 +147,13 @@ export default function CaseStudies() {
     count,
     () => stage.current?.clientWidth ?? 1000,
   );
+
+  // which slides people move on to (the first is counted by "section-reached")
+  const firstRender = useRef(true);
+  useEffect(() => {
+    if (firstRender.current) return void (firstRender.current = false);
+    trackOnce("case-study-viewed", { study: caseStudies[index].id });
+  }, [index]);
 
   // drag to swipe on touch screens only; mice use the arrows, dots, keys or a trackpad swipe
   const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {

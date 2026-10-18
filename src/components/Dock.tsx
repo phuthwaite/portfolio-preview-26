@@ -17,7 +17,10 @@ const getTransform = (distance: number | null) =>
   RESTING_TRANSFORM;
 
 // "Home" (back to the top of the page), then the hero nav's sections
-const dockItems = [{ id: "top", label: "Home", icon: "home" as const }, ...navItems];
+const dockItems = [
+  { id: "top", label: "Home", icon: "home" as const },
+  ...navItems,
+];
 
 const scrollToTop = (e: MouseEvent<HTMLAnchorElement>) => {
   e.preventDefault();
@@ -81,6 +84,8 @@ export default function Dock({
                 <a
                   href={`#${item.id}`}
                   aria-current={isActive ? "true" : undefined}
+                  data-umami-event="dock-nav-click"
+                  data-umami-event-section={item.id}
                   onClick={item.id === "top" ? scrollToTop : undefined}
                   className="dock-link group"
                 >
