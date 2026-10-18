@@ -103,8 +103,8 @@ body {
   --dock-icon-size: 30px;
   /* glyph size inside each tile: what the hero's 60% ratio gave on the old 36px / 52px tiles */
   --dock-glyph-size: 21.6px;
-  --dock-padding-x: 12px;
-  --dock-gap: 22px;
+  --dock-padding-x: 8px;
+  --dock-gap: 30px;
 
   display: flex;
   align-items: flex-end;
@@ -125,7 +125,7 @@ body {
     --dock-glyph-size: 31.2px;
     --dock-padding-x: 28px;
     --dock-padding-y: 14px;
-    --dock-gap: 24px;
+    --dock-gap: 30px;
   }
 }
 
@@ -149,10 +149,10 @@ body {
 }
 
 .dock-label {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 500;
   line-height: 1;
-  letter-spacing: 0;
+  letter-spacing: -0.01em;
   text-transform: uppercase;
   white-space: nowrap;
   color: rgb(255 255 255 / 0.4);
@@ -167,7 +167,7 @@ body {
 
 @media (min-width: 1024px) {
   .dock-label {
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 0.02em;
   }
 }

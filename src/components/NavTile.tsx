@@ -12,7 +12,18 @@ type Icon = (typeof navItems)[number]["icon"] | "home";
 
 // Figma: Hero > nav > Book / User / Study / Experience / Contact.
 // Size comes from `className`; the icon scales with it (ratios from the Figma tiles).
-export default function NavTile({ icon, active, className = "" }: { icon: Icon; active: boolean; className?: string }) {
+export default function NavTile({
+  icon,
+  active,
+  bright = false,
+  className = "",
+}: {
+  icon: Icon;
+  active: boolean;
+  /** full-white icon even when inactive (the hero's nav) */
+  bright?: boolean;
+  className?: string;
+}) {
   return (
     <span
       // Glass panel styling; corner radius scales with the tile (20px at the 78px hero size).
@@ -26,7 +37,7 @@ export default function NavTile({ icon, active, className = "" }: { icon: Icon; 
         data-icon={icon}
         // White when active or hovered (the parent link is the `group`), faded grey otherwise
         className={`transition-opacity ${icon === "photo" && !active ? "size-[53.3%]" : "size-[60%]"} ${
-          active ? "opacity-100" : "opacity-40 group-hover:opacity-100 group-focus-visible:opacity-100"
+          active || bright ? "opacity-100" : "opacity-40 group-hover:opacity-100 group-focus-visible:opacity-100"
         }`}
       />
     </span>

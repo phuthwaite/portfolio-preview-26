@@ -46,7 +46,7 @@ export default function Dock({
       {/* darkens and blurs the content behind the dock so it stands out; fades in with the dock */}
       <div
         aria-hidden
-        className={`dock-backdrop pointer-events-none fixed inset-x-0 bottom-0 z-40 h-64 transition-opacity duration-500 ${
+        className={`dock-backdrop pointer-events-none fixed inset-x-0 bottom-0 z-40 h-40 lg:h-64 transition-opacity duration-500 ${
           visible ? "opacity-100" : "opacity-0"
         }`}
       />

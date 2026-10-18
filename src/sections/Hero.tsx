@@ -50,6 +50,7 @@ function Nav() {
             <NavTile
               icon={item.icon}
               active={false}
+              bright
               className="size-[48px] group-hover:[--glass-border:rgb(235_200_245/0.6)] lg:size-[54.79px]"
             />
           </span>
