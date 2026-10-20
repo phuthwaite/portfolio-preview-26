@@ -28,7 +28,7 @@ export default function NavTile({
     <span
       // Glass panel styling; corner radius scales with the tile (20px at the 78px hero size).
       className={`glass flex shrink-0 items-center justify-center rounded-[26%] transition-[border-color] ${
-        active ? "[--glass-border:#fff]" : ""
+        active ? "[--glass-border:rgb(255_255_255/0.5)]" : ""
       } ${className}`}
     >
       <img

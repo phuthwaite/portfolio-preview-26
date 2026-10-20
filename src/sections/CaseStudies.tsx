@@ -11,9 +11,7 @@ import SectionHeading from "../components/SectionHeading";
 import ArtCanvas from "../components/ArtCanvas";
 import { FillUnderline, LinkArrow } from "../components/LinkDecor";
 import { caseStudyArt } from "./case-study-art";
-import pip from "../assets/pip.svg";
-import pipActive from "../assets/pip-active.svg";
-import carouselNav from "../assets/carousel-nav.svg";
+import { CarouselControls } from "../components/CarouselArrows";
 import { caseStudies, type CaseStudy } from "../data/content";
 import { progressOf, useMomentumSlider } from "../hooks/useMomentumSlider";
 import { trackOnce } from "../lib/analytics";
@@ -33,7 +31,7 @@ function CaseStudyPreview({
   study: CaseStudy;
   offset: number;
 }) {
-  const { Art, crop } = caseStudyArt[study.id];
+  const { Art, crop, shiftX = 0 } = caseStudyArt[study.id];
   const p = progressOf(0, offset);
   // text hands over at the midpoint (outgoing gone before incoming appears); artwork overlaps a little
   const textOpacity = Math.max(0, 1 - 2 * Math.abs(offset));
@@ -41,15 +39,21 @@ function CaseStudyPreview({
   return (
     <article
       aria-labelledby={`case-study-${study.id}`}
-      className="relative flex flex-col pt-[35px] font-case lg:block lg:h-[530px]"
-      style={{ "--accent": study.accent } as CSSProperties}
+      // --art-shift: the artwork's sideways nudge, applied on desktop only (none while stats show)
+      className="relative flex flex-col pt-[35px] font-case lg:block lg:h-[530px] lg:[--art-shift:var(--art-shift-lg)]"
+      style={
+        {
+          "--accent": study.accent,
+          "--art-shift-lg": `${SHOW_STATS ? 0 : shiftX}px`,
+        } as CSSProperties
+      }
     >
       <ArtCanvas
         crop={crop}
         label={study.artAlt}
         style={{
           opacity: artOpacity,
-          transform: `translateX(${offset * 8}%) scale(${1.15 - 0.15 * p})`,
+          transform: `translateX(calc(var(--art-shift, 0px) + ${offset * 8}%)) scale(${1.15 - 0.15 * p})`,
           transformOrigin: "70% 50%",
         }}
       >
@@ -194,9 +198,24 @@ export default function CaseStudies() {
       // Figma: case-study frame fill; the panel spans the full width and clips the artwork
       className="relative flex flex-col overflow-hidden bg-[#1a1a1a] pt-[15px] pb-12 lg:block lg:min-h-[max(681px,100vh)] lg:pb-0"
     >
-      {/* the title stays put while the previews change beneath it */}
+      {/* the title (with the carousel controls at its right) stays put while the previews change
+          beneath it; the controls hide when there's only one study */}
       <div className="site-container pointer-events-none relative z-10 order-1">
-        <SectionHeading>Case Studies</SectionHeading>
+        <SectionHeading
+          aside={
+            count > 1 && (
+              <CarouselControls
+                index={index}
+                count={count}
+                goTo={goTo}
+                prevLabel="Previous case study"
+                nextLabel="Next case study"
+              />
+            )
+          }
+        >
+          Case Studies
+        </SectionHeading>
       </div>
 
       <div
@@ -208,7 +227,7 @@ export default function CaseStudies() {
         onKeyDown={onKeyDown}
         onWheel={onWheel}
         onClickCapture={onClickCapture}
-        className="order-3 grid touch-pan-y outline-none select-none focus-visible:ring-1 focus-visible:ring-white/30 lg:absolute lg:inset-0"
+        className="order-2 grid touch-pan-y outline-none select-none focus-visible:ring-1 focus-visible:ring-white/30 lg:absolute lg:inset-0"
       >
         {caseStudies.map((study, i) => {
           const offset = i - position;
@@ -232,48 +251,6 @@ export default function CaseStudies() {
           );
         })}
       </div>
-
-      {count > 1 && (
-        // on phones the controls sit above the slides, since slides differ in height
-        <div className="site-container relative z-10 order-2 mt-14 flex items-center gap-6 lg:absolute lg:inset-x-0 lg:top-[612px] lg:mt-0">
-          <div className="flex items-center gap-1">
-            {caseStudies.map((study, i) => (
-              <button
-                key={study.id}
-                type="button"
-                aria-label={`Show case study ${i + 1}: ${study.title}`}
-                aria-current={i === index ? "true" : undefined}
-                onClick={() => goTo(i)}
-                className="flex size-5 items-center justify-center"
-              >
-                <img
-                  src={i === index ? pipActive : pip}
-                  alt=""
-                  width={9}
-                  height={8}
-                />
-              </button>
-            ))}
-          </div>
-          <div className="relative h-[54px] w-[107px] shrink-0">
-            <img src={carouselNav} alt="" width={107} height={54} />
-            <button
-              type="button"
-              aria-label="Previous case study"
-              disabled={index === 0}
-              onClick={() => goTo(index - 1)}
-              className="absolute inset-y-0 left-0 w-1/2 rounded hover:bg-white/5 disabled:cursor-default disabled:bg-[#1a1a1a]/60"
-            />
-            <button
-              type="button"
-              aria-label="Next case study"
-              disabled={index === count - 1}
-              onClick={() => goTo(index + 1)}
-              className="absolute inset-y-0 right-0 w-1/2 rounded hover:bg-white/5 disabled:cursor-default disabled:bg-[#1a1a1a]/60"
-            />
-          </div>
-        </div>
-      )}
     </section>
   );
 }

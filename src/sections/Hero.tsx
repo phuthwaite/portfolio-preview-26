@@ -12,12 +12,12 @@ function Name() {
     <div className="relative w-[min(84%,520px)] lg:w-full lg:max-w-[574px]">
       <h1>
         <span className="sr-only">Pauline Huthwaite</span>
-        <NameLockup className="-mt-[1.72%] -mb-[0.55%] w-full" />
+        <NameLockup className="-mt-[1.72%] -mb-[0%] w-full" />
       </h1>
       <button
         type="button"
         aria-label="Hear how to pronounce my name"
-        className="absolute top-[60.8%] left-[98.8%] flex size-[28px] items-center justify-center rounded-2xl lg:size-[25px] bg-[rgb(13_13_13/0.5)] transition-colors hover:bg-white/10"
+        className="absolute top-[58%] left-[98.8%] flex size-[28px] items-center justify-center rounded-2xl lg:size-[25px] bg-[rgb(13_13_13/0.5)] transition-colors hover:bg-white/10"
       >
         <img
           src={audioPng}
@@ -32,7 +32,7 @@ function Name() {
 // Figma: Hero > Content-Intro > title
 function Title() {
   return (
-    <p className="flex flex-wrap items-center justify-center gap-x-[0.2em] text-[clamp(16px,4.8vw,24px)] leading-[normal] tracking-[-0.02em] text-white lg:justify-start lg:text-[clamp(22px,2.43vw,36.77px)]">
+    <p className="flex flex-wrap items-center justify-center gap-x-[0.2em] text-[clamp(18px,4.8vw,26px)] leading-[normal] tracking-[-0.02em] text-white lg:justify-start lg:text-[clamp(28px,2.43vw,38px)]">
       <span>Digital</span>
       <span className="gradient-text [--gradient-angle:146.11deg]">
         Product

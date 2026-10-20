@@ -1,9 +1,10 @@
 import { useEffect, useRef, type KeyboardEvent } from "react";
-import SectionHeading from "../components/SectionHeading";
+import SectionHeading, {
+  GHOST_NUMERAL_GRADIENT,
+  GHOST_OPACITY,
+} from "../components/SectionHeading";
 import { Label } from "../components/Widget";
-import pip from "../assets/pip.svg";
-import pipActive from "../assets/pip-active.svg";
-import carouselNav from "../assets/carousel-nav.svg";
+import { CarouselControls } from "../components/CarouselArrows";
 import { designWork } from "../data/content";
 import { progressOf, useMomentumSlider } from "../hooks/useMomentumSlider";
 import { trackOnce } from "../lib/analytics";
@@ -28,7 +29,9 @@ export default function DesignWork() {
   const firstRender = useRef(true);
   useEffect(() => {
     if (firstRender.current) return void (firstRender.current = false);
-    trackOnce("design-viewed", { item: `${index + 1} ${designWork[index].client}` });
+    trackOnce("design-viewed", {
+      item: `${index + 1} ${designWork[index].client}`,
+    });
   }, [index]);
 
   const onKeyDown = (e: KeyboardEvent) => {
@@ -44,7 +47,11 @@ export default function DesignWork() {
       className="overflow-x-clip pt-[15px] pb-16 lg:min-h-[862px] lg:pb-0"
     >
       <div className="site-container">
-        <SectionHeading>Design</SectionHeading>
+        <SectionHeading
+          aside={<CarouselControls index={index} count={count} goTo={goTo} />}
+        >
+          Design
+        </SectionHeading>
         {/* Figma: design content > item */}
         <div
           role="region"
@@ -54,10 +61,11 @@ export default function DesignWork() {
           onKeyDown={onKeyDown}
           className="relative py-10 outline-none focus-visible:ring-1 focus-visible:ring-accent-border/50"
         >
-          {/* Slide number: scales up and fades in as its card arrives (momentum-slider "numbers") */}
+          {/* Slide number: scales up and fades in as its card arrives (momentum-slider "numbers"); the
+              box is placed so the numerals' tops line up with the card's top edge */}
           <div
             aria-hidden
-            className="pointer-events-none absolute -top-[48px] right-0 h-[84px] w-[110px] overflow-hidden lg:top-[40px] lg:right-auto lg:left-0 lg:h-[120px] lg:w-[132px]"
+            className="pointer-events-none absolute top-[-5px] left-0 hidden h-[136px] w-[132px] overflow-hidden lg:block"
           >
             {designWork.map((_, i) => {
               if (!isNear(i, position)) return null;
@@ -65,12 +73,11 @@ export default function DesignWork() {
               return (
                 <span
                   key={i}
-                  className="absolute inset-0 flex items-start justify-center font-display text-[72px] leading-none lg:text-[104px]"
+                  className="absolute inset-0 flex items-start justify-center font-display text-[104px] leading-[1.3]"
                   style={{
                     transform: `translateX(${(i - position) * 100}%) scale(${0.4 + 0.6 * p})`,
-                    opacity: p,
-                    backgroundImage:
-                      "linear-gradient(to bottom, rgb(255 255 255 / 0.22), rgb(255 255 255 / 0.03))",
+                    opacity: GHOST_OPACITY * p,
+                    backgroundImage: GHOST_NUMERAL_GRADIENT,
                     backgroundClip: "text",
                     WebkitBackgroundClip: "text",
                     color: "transparent",
@@ -90,7 +97,7 @@ export default function DesignWork() {
               className="@container relative cursor-grab touch-pan-y select-none [clip-path:inset(-40px_-100vw_-40px_0)] active:cursor-grabbing lg:pl-[140px] lg:[clip-path:inset(-40px_-100vw_-40px_140px)]"
             >
               <div
-                className="flex [--card-w:100cqw] lg:[--card-w:882px]"
+                className="flex [--card-w:100cqw] lg:[--card-w:min(882px,100cqw)]"
                 style={{
                   gap: GAP,
                   transform: `translateX(calc(${-position} * (var(--card-w) + ${GAP}px)))`,
@@ -132,7 +139,7 @@ export default function DesignWork() {
           </div>
 
           {/* Figma: desc — titles slide vertically and cross-fade (momentum-slider "titles") */}
-          <div className="relative z-10 -mt-6 h-[172px] w-[92%] overflow-hidden bg-[rgb(21_21_21/0.82)] sm:h-[132px] sm:max-w-[420px] lg:absolute lg:bottom-[138px] lg:left-0 lg:mt-0 lg:h-[150px]">
+          <div className="relative z-10 -mt-6 h-[172px] w-[92%] overflow-hidden bg-[rgb(21_21_21/0.82)] sm:h-[132px] sm:max-w-[420px] lg:absolute lg:bottom-[48px] lg:left-0 lg:mt-0 lg:h-[150px]">
             {designWork.map((item, i) => {
               if (!isNear(i, position)) return null;
               return (
@@ -158,56 +165,6 @@ export default function DesignWork() {
           <p aria-live="polite" className="sr-only">
             {`${designWork[index].client}: ${designWork[index].description}, ${index + 1} of ${count}`}
           </p>
-
-          {/* Figma: pips + nav */}
-          <div className="mt-6 flex h-[74px] items-end gap-4 lg:mt-4 lg:gap-10 lg:pl-[140px]">
-            {/* 31 dots don't fit a phone, so small screens get a counter instead */}
-            <p
-              aria-hidden
-              className="flex h-[54px] flex-1 items-center font-label text-base tracking-[0.04em] text-dark-gray lg:hidden"
-            >
-              <span className="text-white">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              &nbsp;/&nbsp;{count}
-            </p>
-            <div className="hidden h-[54px] flex-1 items-center justify-between lg:flex lg:px-6">
-              {designWork.map((item, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  aria-label={`Show slide ${i + 1}: ${item.client}`}
-                  aria-current={i === index ? "true" : undefined}
-                  onClick={() => goTo(i)}
-                  className="flex size-5 items-center justify-center"
-                >
-                  <img
-                    src={i === index ? pipActive : pip}
-                    alt=""
-                    width={9}
-                    height={8}
-                  />
-                </button>
-              ))}
-            </div>
-            <div className="relative h-[54px] w-[107px] shrink-0">
-              <img src={carouselNav} alt="" width={107} height={54} />
-              <button
-                type="button"
-                aria-label="Previous"
-                disabled={index === 0}
-                onClick={() => goTo(index - 1)}
-                className="absolute inset-y-0 left-0 w-1/2 rounded hover:bg-white/5 disabled:cursor-default disabled:bg-page/50"
-              />
-              <button
-                type="button"
-                aria-label="Next"
-                disabled={index === count - 1}
-                onClick={() => goTo(index + 1)}
-                className="absolute inset-y-0 right-0 w-1/2 rounded hover:bg-white/5 disabled:cursor-default disabled:bg-page/50"
-              />
-            </div>
-          </div>
         </div>
       </div>
     </section>
