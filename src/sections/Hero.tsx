@@ -48,11 +48,14 @@ function Title() {
 
 // Figma: Hero > nav
 // The hero is the starting point rather than a section, so none of its items is shown as active.
+// Every item gets the same width so the tiles are evenly spaced whatever their label: on phones a
+// tile-wide slot with the label overhanging evenly either side, on desktop equal columns as wide as
+// the longest label.
 function Nav() {
   return (
     <nav
       aria-label="Sections"
-      className="flex items-start justify-center gap-4 lg:justify-start lg:gap-[18.72px]"
+      className="grid auto-cols-[48px] grid-flow-col justify-center gap-6 lg:auto-cols-fr lg:justify-start lg:gap-0"
     >
       {navItems.map((item) => (
         <a
