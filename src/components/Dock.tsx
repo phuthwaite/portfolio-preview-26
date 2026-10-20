@@ -1,4 +1,4 @@
-import { useState, type MouseEvent, type PointerEvent } from "react";
+import { useState, type CSSProperties, type MouseEvent, type PointerEvent } from "react";
 import NavTile from "./NavTile";
 import { navItems, type SectionId } from "../data/content";
 
@@ -6,11 +6,13 @@ import { navItems, type SectionId } from "../data/content";
 // a discrete step-function magnify, so only icons within 2 places of the hovered one
 // are affected, each at a fixed scale/lift.
 const STEP_TRANSFORMS = [
-  { scale: 1.5, translateY: -10 }, // distance 0 — the hovered icon
-  { scale: 1.2, translateY: -6 }, // distance 1
-  { scale: 1.1, translateY: 0 }, // distance 2
+  { scale: 1.35, translateY: -3 }, // distance 0 — the hovered icon
+  { scale: 1.15, translateY: -2 }, // distance 1
+  { scale: 1.06, translateY: 0 }, // distance 2
 ];
 const RESTING_TRANSFORM = { scale: 1, translateY: 0 };
+// Magnified icons also grow within their tiles, so a big tile doesn't look empty (1.35x tile → ~1.21x icon)
+const GLYPH_BOOST = 0.6;
 
 const getTransform = (distance: number | null) =>
   (distance === null ? undefined : STEP_TRANSFORMS[distance]) ??
@@ -91,9 +93,12 @@ export default function Dock({
                 >
                   <span
                     className="dock-icon"
-                    style={{
-                      transform: `scale(${scale}) translateY(${translateY}px)`,
-                    }}
+                    style={
+                      {
+                        transform: `scale(${scale}) translateY(${translateY}px)`,
+                        "--glyph-boost": 1 + (scale - 1) * GLYPH_BOOST,
+                      } as CSSProperties
+                    }
                   >
                     <NavTile
                       icon={item.icon}

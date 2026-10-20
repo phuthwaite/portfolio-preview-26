@@ -100,11 +100,9 @@ body {
 }
 
 .dock-container {
-  --dock-icon-size: 30px;
-  /* glyph size inside each tile: what the hero's 60% ratio gave on the old 36px / 52px tiles */
-  --dock-glyph-size: 21.6px;
+  --dock-icon-size: 32px;
   --dock-padding-x: 8px;
-  --dock-gap: 30px;
+  --dock-gap: 27px;
 
   display: flex;
   align-items: flex-end;
@@ -121,8 +119,7 @@ body {
 
 @media (min-width: 1024px) {
   .dock-container {
-    --dock-icon-size: 44px;
-    --dock-glyph-size: 31.2px;
+    --dock-icon-size: 48px;
     --dock-padding-x: 28px;
     --dock-padding-y: 14px;
     --dock-gap: 30px;
@@ -139,7 +136,8 @@ body {
   transition: margin 0.2s ease;
 }
 
-/* icon above its label; the label is wider than the icon, so it overflows evenly either side */
+/* icon above its label (touch screens; see the tooltip rules below); the label is wider than the
+   icon, so it overflows evenly either side */
 .dock-link {
   display: flex;
   flex-direction: column;
@@ -149,10 +147,10 @@ body {
 }
 
 .dock-label {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 500;
   line-height: 1;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.03em;
   text-transform: uppercase;
   white-space: nowrap;
   color: rgb(255 255 255 / 0.4);
@@ -167,8 +165,51 @@ body {
 
 @media (min-width: 1024px) {
   .dock-label {
+    font-size: 10px;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* With a mouse or trackpad the labels become tooltips above the icons; touch screens can't hover,
+   so they keep the labels under the icons. The tooltip clears the magnified, lifted tile. */
+@media (hover: hover) and (pointer: fine) {
+  /* no labels to make room for, so the icons can sit closer together */
+  .dock-container {
+    --dock-gap: 16px;
+  }
+
+  .dock-link {
+    position: relative;
+    gap: 0;
+  }
+
+  .dock-label {
+    position: absolute;
+    bottom: calc(100% + var(--dock-icon-size) * 0.35 + 12px);
+    left: 50%;
+    translate: -50% 4px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: rgb(22 21 47 / 0.9);
+    box-shadow: 0 6px 18px rgb(0 0 0 / 0.35);
     font-size: 11px;
     letter-spacing: 0.02em;
+    color: #fff;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease, translate 0.15s ease;
+  }
+
+  .dock-link:hover .dock-label,
+  .dock-link:focus-visible .dock-label {
+    opacity: 1;
+    translate: -50% 0;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+  .dock-label {
+    transition: none;
   }
 }
 
@@ -190,16 +231,10 @@ body {
   --glass-bg: rgb(255 255 255 / 0.14);
 }
 
-/* Tighter tiles than the hero's, with the glyphs kept at a fixed size (the inactive photo icon is
-   drawn a little smaller, as in the hero: 53.3% against 60%) */
+/* magnified icons grow a little within their tiles too (--glyph-boost is set per icon in Dock) */
 .dock-tile img {
-  width: var(--dock-glyph-size);
-  height: var(--dock-glyph-size);
-}
-
-.dock-tile img[data-icon="photo"]:not(.opacity-100) {
-  width: calc(var(--dock-glyph-size) * 0.888);
-  height: calc(var(--dock-glyph-size) * 0.888);
+  transform: scale(var(--glyph-boost, 1));
+  transition: opacity 0.15s ease, transform 0.2s ease;
 }
 
 .dock-link:focus-visible .dock-tile {
@@ -213,7 +248,8 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .dock-icon,
-  .dock-item {
+  .dock-item,
+  .dock-tile img {
     transition: none;
   }
   .dock-link:active .dock-tile {

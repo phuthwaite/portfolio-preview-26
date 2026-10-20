@@ -32,7 +32,7 @@ export default function Experience() {
   const earlier = experience.filter((job) => job.earlier);
 
   return (
-    <section id="experience" className="pt-[15px] pb-16 lg:min-h-[862px]">
+    <section id="experience" className="pt-[15px] pb-32 lg:min-h-[862px] lg:pb-40">
       <div className="site-container [--container-max:1060px] lg:px-6">
         <SectionHeading>Experience</SectionHeading>
 
