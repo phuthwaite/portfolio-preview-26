@@ -195,8 +195,9 @@ export default function CaseStudies() {
       id="case-studies"
       aria-roledescription="carousel"
       aria-label="Case studies"
-      // Figma: case-study frame fill; the panel spans the full width and clips the artwork
-      className="relative flex flex-col overflow-hidden bg-[#1a1a1a] pt-[15px] pb-12 lg:block lg:min-h-[max(681px,100vh)] lg:pb-0"
+      // The panel spans the full width and clips the artwork. (Figma fills it #1a1a1a; for now it
+      // shows the page background like the other sections.)
+      className="relative flex flex-col overflow-hidden pt-[15px] pb-12 lg:block lg:min-h-[max(681px,100vh)] lg:pb-0"
     >
       {/* the title (with the carousel controls at its right) stays put while the previews change
           beneath it; the controls hide when there's only one study */}
