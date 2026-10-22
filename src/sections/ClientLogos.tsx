@@ -88,12 +88,18 @@ function Marquee({ items, seconds, reverse = false, className = "" }: { items: L
 // The edges fade out; hovering pauses it; reduced motion shows a still, wrapped list instead.
 export default function ClientLogos({ className = "" }: { className?: string }) {
   return (
-    <section
-      aria-label="Clients"
-      className={`logo-marquee flex flex-col gap-4 overflow-hidden opacity-57 [--logo-scale:0.8] lg:gap-5 lg:[--logo-scale:1] ${className}`}
-    >
-      <Marquee items={marqueeRows[0]} seconds={50} />
-      <Marquee items={marqueeRows[1]} seconds={50} reverse />
+    <section aria-labelledby="clients-label" className={className}>
+      {/* says what the logos are; styled like the site's other small labels */}
+      <p
+        id="clients-label"
+        className="site-container relative mb-5 text-center text-balance font-label text-xs tracking-[0.25em] text-medium-gray uppercase lg:mb-6"
+      >
+        20+ years designing for brands including
+      </p>
+      <div className="logo-marquee flex flex-col gap-4 overflow-hidden opacity-57 [--logo-scale:0.8] lg:gap-5 lg:[--logo-scale:1]">
+        <Marquee items={marqueeRows[0]} seconds={50} />
+        <Marquee items={marqueeRows[1]} seconds={50} reverse />
+      </div>
     </section>
   );
 }
