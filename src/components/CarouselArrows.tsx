@@ -71,6 +71,8 @@ export function CarouselControls(props: {
   prevLabel?: string;
   nextLabel?: string;
   size?: Size;
+  /** wraps from the last item to the first (and back), so neither arrow is ever disabled */
+  loop?: boolean;
 }) {
   const size = props.size ?? "md";
   return (
@@ -90,6 +92,7 @@ export default function CarouselArrows({
   prevLabel = "Previous",
   nextLabel = "Next",
   size = "md",
+  loop = false,
 }: {
   index: number;
   count: number;
@@ -97,6 +100,8 @@ export default function CarouselArrows({
   prevLabel?: string;
   nextLabel?: string;
   size?: Size;
+  /** wraps from the last item to the first (and back), so neither arrow is ever disabled */
+  loop?: boolean;
 }) {
   return (
     <div className="flex shrink-0 items-center gap-1">
@@ -104,14 +109,14 @@ export default function CarouselArrows({
         direction="prev"
         size={size}
         label={prevLabel}
-        disabled={index === 0}
+        disabled={!loop && index === 0}
         onClick={() => goTo(index - 1)}
       />
       <Arrow
         direction="next"
         size={size}
         label={nextLabel}
-        disabled={index === count - 1}
+        disabled={!loop && index === count - 1}
         onClick={() => goTo(index + 1)}
       />
     </div>

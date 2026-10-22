@@ -109,7 +109,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     quote:
-      "Her attention to detail and care for the end user are second to none. … even with these heavy constraints she produced designs and a user journey that not only looked visually great, but also always improved conversion.",
+      "Her attention to detail and care for the end user are second to none. Holibob's technology platform was an environment where there were many constraints that she had to work around with her designs, but even with these heavy constraints she produced designs and a user journey that not only looked visually great, but also always improved conversion.",
     name: "Isaac Scarrott",
     role: "Product Focused Engineer, Holibob",
     relationship: "Implemented Pauline's designs",
@@ -118,8 +118,15 @@ export const testimonials: Testimonial[] = [
     quote:
       "As well as being incredibly creative she also has a meticulous eye for detail. Pauline always delivers finished designs that are more elegant and usable than my briefs can ever express; I cannot recommend her work highly enough.",
     name: "Will Trattles",
-    role: "Ticketing and Product Specialist, AXS",
-    relationship: "Worked with Pauline on the same team",
+    role: "Ticketing and Product Specialist",
+    relationship: "Worked with Pauline on the same team @ AXS",
+  },
+  {
+    quote:
+      "Pauline is a great designer. She listens to the brief, takes into account the commercial necessities and then creates designs that work. She [is] good at both keeping the day-to-day design quality high as well [as] innovating. On top of this she's also a genuinely pleasant person to work with.",
+    name: "Justin Moodie",
+    role: "VP Marketing, UFORCE",
+    relationship: "Senior to Pauline but didn’t manage directly @ hmv",
   },
 ];
 
