@@ -66,6 +66,63 @@ export const contact = [
   { label: "LinkedIn", text: "phuthwaite", href: "https://www.linkedin.com/in/phuthwaite" },
 ];
 
+// LinkedIn recommendations, trimmed to their strongest lines (their own words; "…" marks a cut).
+// The full versions are on LinkedIn (recommendationsUrl).
+export const recommendationsUrl = "https://www.linkedin.com/in/phuthwaite/details/recommendations/";
+
+export type Testimonial = {
+  quote: string;
+  name: string;
+  role: string;
+  /** how they worked with Pauline, as LinkedIn describes it */
+  relationship: string;
+};
+
+export const testimonials: Testimonial[] = [
+  {
+    quote:
+      "Poggs has been transformative in her role, working with everyone from executives to engineers, with a strong focus on detail and metrics. She has transformed our consumer- and agent-facing products from functional to effective, resulting in higher conversion rates. This is not magic; it is attention to the small stuff.",
+    name: "Graeme Bryce",
+    role: "CTO, Holibob",
+    relationship: "Managed Pauline directly",
+  },
+  {
+    quote:
+      "It's hard to overstate how great she is at her job; lots of people can make pretty designs, but Pauline can do something most other people can't: think through the deep systems and patterns throughout a complex product and create a usable, great-looking design that is easy to use and deceptively simple.",
+    name: "Sarah Householder",
+    role: "Director of Product, reacHIRE",
+    relationship: "Managed Pauline directly",
+  },
+  {
+    quote:
+      "Pauline shaped the UI/UX at Holibob over several years, bringing fresh thinking and a rigour around testing that genuinely moved the needle. … I'd recommend Pauline without hesitation to any team looking for someone who combines design instinct with a data-driven mindset.",
+    name: "Craig Everett",
+    role: "Co-Founder & CEO, Holibob",
+    relationship: "Worked with Pauline (senior)",
+  },
+  {
+    quote:
+      "Pauline is an excellent designer and has had a significant impact on our site during the time she worked with us. Even now, years later, I hear comments from users complimenting the features and designs that Pauline created.",
+    name: "Addie Swartz",
+    role: "CEO, reacHIRE",
+    relationship: "Worked with Pauline (senior)",
+  },
+  {
+    quote:
+      "Her attention to detail and care for the end user are second to none. … even with these heavy constraints she produced designs and a user journey that not only looked visually great, but also always improved conversion.",
+    name: "Isaac Scarrott",
+    role: "Product Focused Engineer, Holibob",
+    relationship: "Implemented Pauline's designs",
+  },
+  {
+    quote:
+      "As well as being incredibly creative she also has a meticulous eye for detail. Pauline always delivers finished designs that are more elegant and usable than my briefs can ever express; I cannot recommend her work highly enough.",
+    name: "Will Trattles",
+    role: "Ticketing and Product Specialist, AXS",
+    relationship: "Worked with Pauline on the same team",
+  },
+];
+
 export type Job = {
   company: string;
   role: string;

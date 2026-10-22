@@ -1,12 +1,16 @@
 // Figma: nav — previous / next chevrons. Each arrow is a tile-sized
 // button with its chevron centred; on hover it gets a soft glass fill and the chevron brightens.
+type Size = "md" | "sm";
+
 function Arrow({
   direction,
   label,
   disabled,
   onClick,
+  size,
 }: {
   direction: "prev" | "next";
+  size: Size;
   label: string;
   disabled: boolean;
   onClick: () => void;
@@ -17,12 +21,12 @@ function Arrow({
       aria-label={label}
       disabled={disabled}
       onClick={onClick}
-      className="group flex h-[54px] w-[52px] cursor-pointer items-center justify-center rounded-[14px] text-light-gray transition-colors outline-none hover:bg-white/10 hover:text-white focus-visible:ring-1 focus-visible:ring-white/40 disabled:cursor-default disabled:bg-transparent disabled:text-light-gray/30"
+      className={`group flex cursor-pointer items-center justify-center text-light-gray ${size === "sm" ? "size-10 rounded-[10px]" : "h-[54px] w-[52px] rounded-[14px]"} transition-colors outline-none hover:bg-white/10 hover:text-white focus-visible:ring-1 focus-visible:ring-white/40 disabled:cursor-default disabled:bg-transparent disabled:text-light-gray/30`}
     >
       <svg
         aria-hidden
-        width="17"
-        height="34"
+        width={size === "sm" ? 9 : 17}
+        height={size === "sm" ? 18 : 34}
         viewBox="0 0 17 34"
         fill="none"
         stroke="currentColor"
@@ -37,12 +41,21 @@ function Arrow({
   );
 }
 
-// "01 / 05" — which item is showing, out of how many
-function Counter({ index, count }: { index: number; count: number }) {
+// "01 / 05" — which item is showing, out of how many (the small size drops it on phones, where
+// its row is tight)
+function Counter({
+  index,
+  count,
+  size,
+}: {
+  index: number;
+  count: number;
+  size: Size;
+}) {
   return (
     <p
       aria-hidden
-      className="font-label text-base tracking-[0.04em] whitespace-nowrap text-dark-gray tabular-nums"
+      className={`font-label ${size === "sm" ? "text-sm max-sm:hidden" : "text-base"} tracking-[0.04em] whitespace-nowrap text-dark-gray tabular-nums`}
     >
       <span className="text-white">{String(index + 1).padStart(2, "0")}</span>
       &nbsp;/&nbsp;{String(count).padStart(2, "0")}
@@ -57,10 +70,14 @@ export function CarouselControls(props: {
   goTo: (i: number) => void;
   prevLabel?: string;
   nextLabel?: string;
+  size?: Size;
 }) {
+  const size = props.size ?? "md";
   return (
-    <div className="flex items-center gap-3 lg:gap-5">
-      <Counter index={props.index} count={props.count} />
+    <div
+      className={`flex items-center ${size === "sm" ? "gap-3" : "gap-3 lg:gap-5"}`}
+    >
+      <Counter index={props.index} count={props.count} size={size} />
       <CarouselArrows {...props} />
     </div>
   );
@@ -72,23 +89,27 @@ export default function CarouselArrows({
   goTo,
   prevLabel = "Previous",
   nextLabel = "Next",
+  size = "md",
 }: {
   index: number;
   count: number;
   goTo: (i: number) => void;
   prevLabel?: string;
   nextLabel?: string;
+  size?: Size;
 }) {
   return (
     <div className="flex shrink-0 items-center gap-1">
       <Arrow
         direction="prev"
+        size={size}
         label={prevLabel}
         disabled={index === 0}
         onClick={() => goTo(index - 1)}
       />
       <Arrow
         direction="next"
+        size={size}
         label={nextLabel}
         disabled={index === count - 1}
         onClick={() => goTo(index + 1)}
