@@ -60,9 +60,10 @@ export default function Dock({
         aria-label="Sections"
         aria-hidden={!visible}
         inert={!visible}
-        className={`fixed bottom-4 left-1/2 z-50 -translate-x-1/2 transition-[translate,opacity] duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${
+        // centred by layout (auto margins) rather than a -50% shift, so it always sits on whole pixels
+        className={`fixed inset-x-0 bottom-4 z-50 mx-auto w-fit transition-[translate,opacity] duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${
           visible
-            ? "translate-y-0 opacity-100"
+            ? "translate-none opacity-100"
             : "pointer-events-none translate-y-[calc(100%+24px)] opacity-0"
         }`}
       >

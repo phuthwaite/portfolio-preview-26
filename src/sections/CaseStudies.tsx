@@ -87,7 +87,7 @@ function CaseStudyPreview({
               {study.company}
             </p>
           </div>
-          <div className="mt-6 max-h-[240px] overflow-hidden text-[15px] leading-6 tracking-[0.01em] text-white lg:w-[323px]">
+          <div className="mt-6 text-[15px] leading-6 tracking-[0.01em] text-white lg:w-[323px]">
             {study.summary.map((para, i) => (
               <p key={i} className="whitespace-pre-wrap">
                 {para}

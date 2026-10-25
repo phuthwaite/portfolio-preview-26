@@ -94,7 +94,7 @@ export default function ClientLogos({ className = "" }: { className?: string }) 
         id="clients-label"
         className="site-container relative mb-5 text-center text-balance text-xs font-medium tracking-[0.25em] text-medium-gray uppercase lg:mb-6"
       >
-        20+ years designing for brands including
+        20+ years designing for brands including...
       </p>
       <div className="logo-marquee flex flex-col gap-4 overflow-hidden opacity-57 [--logo-scale:0.8] lg:gap-5 lg:[--logo-scale:1]">
         <Marquee items={marqueeRows[0]} seconds={50} />

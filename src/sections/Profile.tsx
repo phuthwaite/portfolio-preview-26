@@ -2,6 +2,20 @@ import SectionHeading from "../components/SectionHeading";
 import Widget from "../components/Widget";
 import { profile } from "../data/content";
 
+// A titled set of tag groups (Skillset, Toolkit): each group gets a small heading above its tags
+function GroupedTags({ groups }: { groups: { group: string; items: string[] }[] }) {
+  return (
+    <div className="mt-1 flex flex-col gap-5">
+      {groups.map(({ group, items }) => (
+        <div key={group} className="flex flex-col gap-2">
+          <h4 className="text-[13px] leading-5 font-medium text-light-gray/60">{group}</h4>
+          <Tags items={items} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function Tags({ items }: { items: string[] }) {
   return (
     <ul className="mt-1 flex flex-wrap gap-2">
@@ -17,7 +31,7 @@ function Tags({ items }: { items: string[] }) {
 // Figma: profile content — About on the left, Skillset/Toolkit on the right, filled from the CV
 export default function Profile() {
   return (
-    <section id="profile" className="pt-[15px] pb-16 lg:min-h-[739px]">
+    <section id="profile" className="pt-[15px] pb-32 lg:min-h-[739px] lg:pb-40">
       <div className="site-container [--container-max:1060px] lg:px-6">
         <SectionHeading>Profile</SectionHeading>
         <div className="relative flex flex-col gap-10 py-10 lg:flex-row lg:gap-14">
@@ -49,10 +63,10 @@ export default function Profile() {
           </div>
           <div className="flex flex-1 flex-col gap-10">
             <Widget label="Skillset">
-              <Tags items={profile.skillset} />
+              <GroupedTags groups={profile.skillset} />
             </Widget>
             <Widget label="Toolkit">
-              <Tags items={profile.toolkit} />
+              <GroupedTags groups={profile.toolkit} />
             </Widget>
           </div>
         </div>

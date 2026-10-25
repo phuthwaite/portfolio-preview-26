@@ -181,9 +181,14 @@ body {
 
   .dock-label {
     position: absolute;
-    bottom: calc(100% + var(--dock-icon-size) * 0.35 + 12px);
-    left: 50%;
-    translate: -50% 4px;
+    /* centred over the icon by layout (not a -50% shift) and rounded to whole pixels, so the text
+       stays crisp on standard-resolution screens */
+    bottom: round(calc(100% + var(--dock-icon-size) * 0.35 + 12px), 1px);
+    left: -200px;
+    right: -200px;
+    width: max-content;
+    margin-inline: auto;
+    translate: 0 4px;
     padding: 6px 10px;
     border-radius: 8px;
     background: rgb(22 21 47 / 0.9);
@@ -199,7 +204,7 @@ body {
   .dock-link:hover .dock-label,
   .dock-link:focus-visible .dock-label {
     opacity: 1;
-    translate: -50% 0;
+    translate: none;
   }
 }
 
@@ -297,8 +302,12 @@ body {
    viewport edges. Narrowing the column (rather than padding it) keeps the Figma positions inside. */
 @utility site-container {
   --gutter: 16px;
-  margin-inline: auto;
-  width: min(var(--container-max, 1024px), 100% - 2 * var(--gutter));
+  --container-w: min(var(--container-max, 1024px), 100% - 2 * var(--gutter));
+  /* centred, but with the left margin rounded down to a whole pixel (auto margins can land on a
+     half pixel, which blurs carousels and other transformed content on standard-resolution screens) */
+  margin-inline: auto; /* fallback for browsers without round() */
+  margin-left: round(down, (100% - var(--container-w)) / 2, 1px);
+  width: var(--container-w);
   @media (min-width: 1024px) {
     --gutter: 40px;
   }

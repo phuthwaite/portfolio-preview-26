@@ -17,34 +17,67 @@ export type SectionId = (typeof navItems)[number]["id"];
 // From CV_PaulineH_2026
 export const profile = {
   // TODO: the CV has no written bio, so this is its headline; replace with an intro in your own words.
-  about: ["Product and experience Designer with 20+ years' experience leading the design of digital products for global brands across travel, media, entertainment, gaming, technology and ecommerce. Experienced in shaping product strategy, leading end-to-end design across the full product lifecycle, and collaborating with cross-functional teams to deliver user-centred, commercially effective solutions. Combining strong UX research, interaction design and visual design expertise with practical application of AI to enhance research, ideation, prototyping and design workflows, improving both team efficiency and product outcomes."],
+  about: ["Product and experience Designer with 20+ years' experience leading the design of digital products for global brands across travel, media, entertainment, gaming, technology and ecommerce. Experienced in shaping product strategy, leading end-to-end design across the full product lifecycle, and collaborating with cross-functional teams to deliver user-centred, commercially effective solutions. Combining strong UX research, interaction design and visual design expertise with practical application of AI to enhance research, ideation, prototyping and design workflows, improving both team efficiency and product outcomes. Hands-on front-end skills (HTML, CSS, JavaScript, React) for prototyping in code and working closely with engineering to see designs through to production."],
+  // Grouped by the part of the job they apply to
   skillset: [
-    "Visual & Creative Thinking",
-    "E2E & Full Lifecycle Expertise",
-    "Usability (UX) Design & Research",
-    "User Testing",
-    "User Interface Design",
-    "Design Systems (inc. Multi-Brand)",
-    "Native Apps",
-    "Responsive & Platform-Agnostic Design",
-    "Interaction Design (IxD)",
-    "User Flows & Journey Mapping",
-    "Prototyping",
-    "Animation / Motion Design",
-    "3D Graphics",
-    "FE Coding (HTML, CSS, JS)",
+    {
+      group: "Product Design",
+      items: [
+        "End-to-end Product Design",
+        "UX Strategy",
+        "Interaction Design",
+        "Information Architecture",
+        "Design Systems",
+        "Responsive & Native Mobile",
+        "Accessibility (WCAG)",
+        "Visual & Creative Direction",
+        "Animation / Motion Design",
+        "3D Graphics",
+      ],
+    },
+    {
+      group: "Research & Optimisation",
+      items: [
+        "User Research & Discovery",
+        "Usability Testing",
+        "Customer Journey Mapping",
+        "A/B Testing & CRO",
+        "Product Analytics & Insights",
+        "Service Design",
+      ],
+    },
+    {
+      group: "AI",
+      items: [
+        "AI-assisted Research & Synthesis",
+        "AI-powered Design Workflows",
+        "Rapid Prototyping with AI",
+        "Human-centred AI Design",
+        "Workflow Automation",
+      ],
+    },
+    {
+      // designs built by hand, not just handed over (or left to AI)
+      group: "Front-end Development",
+      items: ["HTML, CSS & JavaScript", "React", "Node.js", "Coded Prototypes", "Working in Dev Frameworks"],
+    },
+    {
+      group: "Delivery & Leadership",
+      items: [
+        "Cross-functional Leadership",
+        "Stakeholder Management",
+        "Agile Product Development",
+        "Developer Handoff & Design QA",
+        "Wireframing & Prototyping",
+      ],
+    },
   ],
   toolkit: [
-    "Figma",
-    "Miro",
-    "ProtoPie",
-    "Adobe CC: Photoshop, Illustrator, After Effects, Premiere",
-    "Notion",
-    "GitHub",
-    "VS Code",
-    "AI: Claude, Cursor, ChatGPT",
-    "Cinema 4D",
-    "MS Office / Google Workspace",
+    { group: "Design & Prototyping", items: ["Figma", "Framer", "ProtoPie", "Axure RP", "Adobe Creative Cloud"] },
+    { group: "Research & Analytics", items: ["Google Analytics", "Hotjar", "Datadog"] },
+    { group: "Development", items: ["VS Code", "GitHub", "npm"] },
+    { group: "Collaboration", items: ["FigJam", "Miro", "Jira", "Confluence"] },
+    { group: "AI", items: ["ChatGPT", "Claude", "Cursor", "Figma AI"] },
   ],
   education: [
     {
@@ -415,13 +448,13 @@ export const caseStudies: CaseStudy[] = [
     logoWidth: 163.46,
     logoHeight: 34,
     company: "The White Company",
-    summary: placeholderSummary,
+    summary: ["I was brought in as UX Lead to redesign product detail and listing pages, and various checkout flows. I conducted competitive analysis, user research and data synthesis, as well as creating wireframes, prototypes and high-fidelity designs for desktop and mobile, which I presented to C-level stakeholders. I worked closely with the development team to ensure the designs were implemented correctly and met the business goals."],
     stats: [
       { value: "17%", label: "conversion rate increase" },
       // TODO: this stat is identical to one on the AXS slide in Figma; check it's right for TWC.
       { value: "12%", label: "reduction in ticket-related customer support queries" },
     ],
-    artAlt: "A white gift box tied with a black ribbon, branded The White Company",
+    artAlt: "The White Company product page on desktop and mobile",
     accent: "#dddddd",
     href: "#case-studies",
   },

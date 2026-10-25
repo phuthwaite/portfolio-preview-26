@@ -22,5 +22,5 @@ export const caseStudyArt: Record<
   vw: { Art: VwArt, crop: { x: 410, y: 160, w: 1070, h: 580 } },
   samsung: { Art: SamsungArt, crop: { x: 500, y: 200, w: 600, h: 520 } },
   axs: { Art: AxsArt, crop: { x: 520, y: 140, w: 660, h: 600 }, shiftX: -60 },
-  twc: { Art: TwcArt, crop: { x: 510, y: 335, w: 590, h: 420 } },
+  twc: { Art: TwcArt, crop: { x: 505, y: 237, w: 602, h: 474 } },
 };

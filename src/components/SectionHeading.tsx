@@ -24,7 +24,7 @@ export default function SectionHeading({
 }) {
   const title = (
     <h2
-      className="pointer-events-none mb-[-0.494em] font-display text-(length:--heading-size) leading-[1.3] whitespace-nowrap opacity-12 select-none"
+      className="pointer-events-none mb-[round(-0.494em,1px)] font-display text-(length:--heading-size) leading-[round(1.3em,1px)] whitespace-nowrap opacity-12 select-none"
       style={{
         ["--heading-size" as string]: SIZE,
         backgroundImage: GHOST_GRADIENT,
@@ -42,7 +42,7 @@ export default function SectionHeading({
       {title}
       <div
         className="pointer-events-auto absolute top-0 right-0 z-10 flex items-center"
-        style={{ height: `calc(${SIZE} * 1.3)` }}
+        style={{ height: `round(calc(${SIZE} * 1.3), 2px)` }}
       >
         {aside}
       </div>
