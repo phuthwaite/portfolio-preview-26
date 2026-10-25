@@ -40,7 +40,7 @@ function CaseStudyPreview({
     <article
       aria-labelledby={`case-study-${study.id}`}
       // --art-shift: the artwork's sideways nudge, applied on desktop only (none while stats show)
-      className="relative flex flex-col pt-[35px] font-case lg:block lg:h-[530px] lg:[--art-shift:var(--art-shift-lg)]"
+      className="relative flex flex-col pt-[35px] lg:block lg:h-[530px] lg:[--art-shift:var(--art-shift-lg)]"
       style={
         {
           "--accent": study.accent,
@@ -71,7 +71,7 @@ function CaseStudyPreview({
         >
           <h3
             id={`case-study-${study.id}`}
-            className="font-case-display text-2xl tracking-[0.01em] text-(--accent)"
+            className="text-2xl tracking-[0.01em] text-(--accent)"
           >
             {study.title}
           </h3>
@@ -103,7 +103,7 @@ function CaseStudyPreview({
             rel="noopener noreferrer"
             className="group cursor-new-window mt-9 inline-flex flex-col pt-1 text-(--accent)"
           >
-            <span className="inline-flex items-center gap-1.5 font-condensed text-lg leading-[1.4] font-semibold tracking-[0.04em] uppercase">
+            <span className="inline-flex items-center gap-1.5 text-sm leading-[1.6] font-semibold tracking-[0.08em] uppercase">
               Read more
               <span className="sr-only">
                 : {study.title} (opens in a new tab)
@@ -117,7 +117,7 @@ function CaseStudyPreview({
         {/* Figma: stats */}
         {SHOW_STATS && (
           <dl
-            className="grid grid-cols-1 gap-[19px] font-case-display sm:grid-cols-3 lg:flex lg:w-[252px] lg:flex-col"
+            className="grid grid-cols-1 gap-[19px] sm:grid-cols-3 lg:flex lg:w-[252px] lg:flex-col"
             style={{
               opacity: textOpacity,
               transform: `translateX(${offset * 110}px)`,

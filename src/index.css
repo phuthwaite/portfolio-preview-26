@@ -21,15 +21,11 @@
   --color-accent-border: #e6baf2;
   --color-accent-border-soft: #ebc8f5;
 
+  /* Two typefaces: Montserrat for everything you read or use (interface text such as links, labels
+     and counters is Montserrat uppercase, letter-spaced, like the nav labels) and Suez One for display
+     (the faded section titles and numerals). */
   --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
-  --font-label: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Suez One", ui-serif, Georgia, serif;
-
-  /* Case-study previews. Euclid Circular A and Avenir Next Condensed are licensed fonts, so
-     visitors without them get the closest free match (Outfit, Barlow Condensed). */
-  --font-case: "Alan Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-case-display: "Euclid Circular A", "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --font-condensed: "Avenir Next Condensed", "Barlow Condensed", ui-sans-serif, sans-serif;
 }
 
 html {

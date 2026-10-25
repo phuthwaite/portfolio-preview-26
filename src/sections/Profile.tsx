@@ -33,7 +33,7 @@ export default function Profile() {
               <ul className="flex flex-col gap-4">
                 {profile.education.map((ed) => (
                   <li key={ed.qualification}>
-                    <p className="text-white">{ed.qualification}</p>
+                    <p className="text-white text-[15px]">{ed.qualification}</p>
                     {ed.detail && <p className="text-[15px] leading-6 text-light-gray/75">{ed.detail}</p>}
                     <p className="text-[15px] leading-6 text-light-gray/100">
                       {ed.institution}
@@ -43,9 +43,9 @@ export default function Profile() {
                 ))}
               </ul>
             </Widget>
-            <Widget label="Interests">
+            {/* <Widget label="Interests">
               <Tags items={profile.interests} />
-            </Widget>
+            </Widget> */}
           </div>
           <div className="flex flex-1 flex-col gap-10">
             <Widget label="Skillset">

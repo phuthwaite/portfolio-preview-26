@@ -1,7 +1,7 @@
 // "Widget / Web" in Figma: an uppercase label above body copy.
 export function Label({ children }: { children: React.ReactNode }) {
   return (
-    <p className="font-label text-xs tracking-[0.25em] text-medium-gray uppercase">{children}</p>
+    <p className="text-xs font-medium tracking-[0.25em] text-medium-gray uppercase">{children}</p>
   );
 }
 

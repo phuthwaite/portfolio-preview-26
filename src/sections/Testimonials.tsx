@@ -43,7 +43,7 @@ function Avatar({ name }: { name: string }) {
   return (
     <span
       aria-hidden
-      className="flex size-12 shrink-0 items-center justify-center rounded-full bg-white/10 font-label text-sm tracking-[0.04em] text-light-gray"
+      className="flex size-12 shrink-0 items-center justify-center rounded-full bg-white/10 text-sm font-medium tracking-[0.04em] text-light-gray"
     >
       {initials}
     </span>
@@ -192,7 +192,7 @@ export default function Testimonials({
         target="_blank"
         rel="noopener noreferrer"
         data-umami-event="recommendations-linkedin-click"
-        className="group cursor-new-window inline-flex w-fit flex-col gap-1 self-start font-label text-xs tracking-[0.2em] whitespace-nowrap text-light-gray uppercase"
+        className="group cursor-new-window inline-flex w-fit flex-col gap-1 self-start text-xs font-medium tracking-[0.2em] whitespace-nowrap text-light-gray uppercase"
       >
         <span className="inline-flex items-center gap-1.5">
           More on LinkedIn

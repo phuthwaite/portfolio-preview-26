@@ -17,22 +17,22 @@ export type SectionId = (typeof navItems)[number]["id"];
 // From CV_PaulineH_2026
 export const profile = {
   // TODO: the CV has no written bio, so this is its headline; replace with an intro in your own words.
-  about: ["Digital Product & Experience Designer based in London, UK, with 20+ years’ professional experience."],
+  about: ["Product and experience Designer with 20+ years' experience leading the design of digital products for global brands across travel, media, entertainment, gaming, technology and ecommerce. Experienced in shaping product strategy, leading end-to-end design across the full product lifecycle, and collaborating with cross-functional teams to deliver user-centred, commercially effective solutions. Combining strong UX research, interaction design and visual design expertise with practical application of AI to enhance research, ideation, prototyping and design workflows, improving both team efficiency and product outcomes."],
   skillset: [
     "Visual & Creative Thinking",
     "E2E & Full Lifecycle Expertise",
-    "Usability (UX)",
+    "Usability (UX) Design & Research",
+    "User Testing",
     "User Interface Design",
     "Design Systems (inc. Multi-Brand)",
     "Native Apps",
     "Responsive & Platform-Agnostic Design",
     "Interaction Design (IxD)",
     "User Flows & Journey Mapping",
-    "Hi/Lo-Fi Wireframes & Mockups",
-    "Hi/Lo-Fi Prototyping",
+    "Prototyping",
     "Animation / Motion Design",
     "3D Graphics",
-    "FE Development (HTML, CSS, JS)",
+    "FE Coding (HTML, CSS, JS)",
   ],
   toolkit: [
     "Figma",
@@ -44,7 +44,6 @@ export const profile = {
     "VS Code",
     "AI: Claude, Cursor, ChatGPT",
     "Cinema 4D",
-    "Spline",
     "MS Office / Google Workspace",
   ],
   education: [

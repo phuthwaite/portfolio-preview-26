@@ -16,7 +16,7 @@ function JobHeader({ job, as: Heading }: { job: Job; as: "h3" | "h4" }) {
         <span className="sr-only">, </span>
         {job.company}
       </Heading>
-      <p className="font-label text-sm tracking-[0.04em] text-dark-gray uppercase">
+      <p className="text-xs tracking-[0.06em] text-dark-gray uppercase">
         <time>{job.period}</time>
         <span aria-hidden> · </span>
         <span className="sr-only">, </span>
@@ -54,7 +54,7 @@ export default function Experience() {
           ))}
         </ol>
 
-        <h3 className="mt-12 mb-4 font-label text-base tracking-[0.04em] text-dark-gray uppercase">Earlier roles</h3>
+        <h3 className="mt-12 mb-4 text-sm tracking-[0.06em] text-dark-gray uppercase">Earlier roles</h3>
         <ol className="relative grid gap-4 sm:grid-cols-2">
           {earlier.map((job) => (
             <li key={job.company} className="rounded bg-surface py-4 pr-6 pl-4">

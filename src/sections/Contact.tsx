@@ -29,13 +29,14 @@ export default function Contact() {
                       target: "_blank",
                       rel: "noopener noreferrer",
                     })}
-                    className="group inline-flex w-fit items-center gap-3 text-[clamp(24px,4vw,40px)] leading-tight tracking-[-0.01em] text-white"
+                    // the case studies' "Read more" style, in white and a little larger
+                    className={`group inline-flex w-fit flex-col pt-1 text-white ${external ? "cursor-new-window" : ""}`}
                   >
-                    <span className="flex flex-col gap-[0.12em]">
+                    <span className="inline-flex items-center gap-1.5 text-lg leading-[1.4] font-semibold tracking-[0.08em] uppercase">
                       {item.text}
-                      <FillUnderline className="h-[2px]" />
+                      <LinkArrow className="size-[0.8em]" />
                     </span>
-                    <LinkArrow className="size-[0.6em]" />
+                    <FillUnderline />
                     {external && (
                       <span className="sr-only">(opens in a new tab)</span>
                     )}

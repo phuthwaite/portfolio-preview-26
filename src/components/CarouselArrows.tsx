@@ -55,7 +55,7 @@ function Counter({
   return (
     <p
       aria-hidden
-      className={`font-label ${size === "sm" ? "text-sm max-sm:hidden" : "text-base"} tracking-[0.04em] whitespace-nowrap text-dark-gray tabular-nums`}
+      className={`${size === "sm" ? "text-sm max-sm:hidden" : "text-base"} tracking-[0.04em] whitespace-nowrap text-dark-gray tabular-nums`}
     >
       <span className="text-white">{String(index + 1).padStart(2, "0")}</span>
       &nbsp;/&nbsp;{String(count).padStart(2, "0")}

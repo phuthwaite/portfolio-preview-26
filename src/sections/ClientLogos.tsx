@@ -92,7 +92,7 @@ export default function ClientLogos({ className = "" }: { className?: string }) 
       {/* says what the logos are; styled like the site's other small labels */}
       <p
         id="clients-label"
-        className="site-container relative mb-5 text-center text-balance font-label text-xs tracking-[0.25em] text-medium-gray uppercase lg:mb-6"
+        className="site-container relative mb-5 text-center text-balance text-xs font-medium tracking-[0.25em] text-medium-gray uppercase lg:mb-6"
       >
         20+ years designing for brands including
       </p>
