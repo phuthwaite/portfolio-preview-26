@@ -404,7 +404,7 @@ export const caseStudies: CaseStudy[] = [
     logoHeight: 35,
     company: "Volkswagen Group UK",
     summary: [
-      "I was brought in by Ekino/Havas as Experience Lead to deliver Volkswagen Group's production-ready, multi-brand email design system in Figma. Working with product, programme and creative leads, and directly with developers, I led it end to end over almost a year: discovery, design, build, testing, and handoff with full documentation and training. One modular system covers Audi, VW Passenger Cars, VW Commercial Vehicles, Škoda, CUPRA and SEAT, while keeping each brand distinct.",
+      "A production-ready, multi-brand email design system in Figma, delivered for Volkswagen Group by Ekino/Havas. Over almost a year, the project ran from discovery and research through design, build and testing to handoff, with full documentation and training for the teams using it. One modular system covers Audi, VW Passenger Cars, VW Commercial Vehicles, Škoda, CUPRA and SEAT, while keeping each brand's identity distinct.",
     ],
     stats: [{ value: "60%", label: "reduction in production time" }],
     artAlt: "Collage of marketing emails for Volkswagen Group brands including Cupra, Škoda and Volkswagen Financial Services",
@@ -420,7 +420,7 @@ export const caseStudies: CaseStudy[] = [
     logoHeight: 24,
     company: "Samsung Electronics UK",
     summary: [
-      "Designed the end-to-end campaign architecture to smoothly onboard new flagships while simultaneously capturing legacy upgrades and conquering non-Samsung trade-ins. The design successfully streamlined complex token distribution and clipboard handoffs, resulting in a friction-free software redemption path that maximized post-purchase user gratification across the UK launch window.",
+      "The UK launch campaign for the Galaxy S21: an end-to-end rewards journey to onboard new flagship owners while also capturing upgrades from older Samsung models and trade-ins from other brands. The design streamlined complex token distribution and copying codes between apps into a friction-free redemption path, maximising post-purchase satisfaction across the launch window.",
     ],
     stats: [{ value: "3", label: "Targeted User Flows" }, { value: "8+", label: "Global Partner Integrations" }, { value: "E2E", label: "Conversion & Redemption Logic" }],
     artAlt: "The Galaxy S21 Boost rewards page on desktop and mobile",
@@ -452,7 +452,9 @@ export const caseStudies: CaseStudy[] = [
     logoWidth: 163.46,
     logoHeight: 34,
     company: "The White Company",
-    summary: ["I was brought in as UX Lead to redesign product detail and listing pages, and various checkout flows. I conducted competitive analysis, user research and data synthesis, as well as creating wireframes, prototypes and high-fidelity designs for desktop and mobile, which I presented to C-level stakeholders. I worked closely with the development team to ensure the designs were implemented correctly and met the business goals."],
+    summary: [
+      "A redesign of The White Company's product listing and detail pages, along with key checkout flows, for desktop and mobile. Shaped by competitive analysis, user research and data synthesis, the work progressed from wireframes and prototypes to high-fidelity designs, presented to C-level stakeholders and delivered in close partnership with the development team to meet the business goals.",
+    ],
     stats: [
       { value: "17%", label: "conversion rate increase" },
       // TODO: this stat is identical to one on the AXS slide in Figma; check it's right for TWC.
