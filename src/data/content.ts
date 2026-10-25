@@ -17,7 +17,9 @@ export type SectionId = (typeof navItems)[number]["id"];
 // From CV_PaulineH_2026
 export const profile = {
   // TODO: the CV has no written bio, so this is its headline; replace with an intro in your own words.
-  about: ["Product and experience Designer with 20+ years' experience leading the design of digital products for global brands across travel, media, entertainment, gaming, technology and ecommerce. Experienced in shaping product strategy, leading end-to-end design across the full product lifecycle, and collaborating with cross-functional teams to deliver user-centred, commercially effective solutions. Combining strong UX research, interaction design and visual design expertise with practical application of AI to enhance research, ideation, prototyping and design workflows, improving both team efficiency and product outcomes. Hands-on front-end skills (HTML, CSS, JavaScript, React) for prototyping in code and working closely with engineering to see designs through to production."],
+  about: ["Product and experience Designer with 20+ years' experience leading the design of digital products for global brands across travel, media, entertainment, gaming, technology and ecommerce.","Experienced in shaping product strategy, leading end-to-end design across the full product lifecycle, and collaborating with cross-functional teams to deliver user-centred, commercially effective solutions.",
+    "Combining strong UX research, interaction design and visual design expertise with practical application of AI to enhance research, ideation, prototyping and design workflows, improving both team efficiency and product outcomes.",
+    "Hands-on front-end skills (HTML, CSS, JavaScript, React) for prototyping in code and working closely with engineering to see designs through to production."],
   // Grouped by the part of the job they apply to
   skillset: [
     {
@@ -76,7 +78,7 @@ export const profile = {
     { group: "Design & Prototyping", items: ["Figma", "Framer", "ProtoPie", "Axure RP", "Adobe Creative Cloud"] },
     { group: "Research & Analytics", items: ["Google Analytics", "Hotjar", "Datadog"] },
     { group: "Development", items: ["VS Code", "GitHub", "npm"] },
-    { group: "Collaboration", items: ["FigJam", "Miro", "Jira", "Confluence"] },
+    { group: "Collaboration", items: ["Miro", "Jira", "Confluence"] },
     { group: "AI", items: ["ChatGPT", "Claude", "Cursor", "Figma AI"] },
   ],
   education: [
@@ -401,7 +403,9 @@ export const caseStudies: CaseStudy[] = [
     logoWidth: 35,
     logoHeight: 35,
     company: "Volkswagen Group UK",
-    summary: placeholderSummary,
+    summary: [
+      "I was brought in by Ekino/Havas as Experience Lead to deliver Volkswagen Group's production-ready, multi-brand email design system in Figma. Working with product, programme and creative leads, and directly with developers, I led it end to end over almost a year: discovery, design, build, testing, and handoff with full documentation and training. One modular system covers Audi, VW Passenger Cars, VW Commercial Vehicles, Škoda, CUPRA and SEAT, while keeping each brand distinct.",
+    ],
     stats: [{ value: "60%", label: "reduction in production time" }],
     artAlt: "Collage of marketing emails for Volkswagen Group brands including Cupra, Škoda and Volkswagen Financial Services",
     accent: "#b3d7dd",

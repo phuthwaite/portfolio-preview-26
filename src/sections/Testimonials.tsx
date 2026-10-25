@@ -172,7 +172,7 @@ export default function Testimonials({
                 >
                   “
                 </span>
-                <p className="relative">{t.quote}</p>
+                <p className="relative text-[16px] leading-7">{t.quote}</p>
               </blockquote>
               <figcaption className="flex items-center gap-4 text-[15px] leading-5">
                 <Avatar name={t.name} />

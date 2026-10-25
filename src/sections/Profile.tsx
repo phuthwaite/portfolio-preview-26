@@ -38,7 +38,7 @@ export default function Profile() {
           <div className="flex flex-col gap-10 lg:w-[460px] lg:shrink-0">
             <Widget label="About">
               {profile.about.map((para, i) => (
-                <p key={i} className="mb-2 leading-7 last:mb-0 text-white">
+                <p key={i} className="mb-2 leading-7 last:mb-0 text-white text-[16px]">
                   {para}
                 </p>
               ))}
