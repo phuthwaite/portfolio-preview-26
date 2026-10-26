@@ -1,4 +1,10 @@
-import { useEffect, useRef, type KeyboardEvent } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type KeyboardEvent,
+} from "react";
 import SectionHeading, {
   GHOST_NUMERAL_GRADIENT,
   GHOST_OPACITY,
@@ -41,6 +47,20 @@ export default function DesignWork() {
     else return;
     e.preventDefault();
   };
+
+  // The caption box takes the height of the current caption (plus its 12px padding), easing between
+  // captions of different lengths; re-measured if the text reflows (e.g. on resize)
+  const captionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [captionH, setCaptionH] = useState<number>();
+  useLayoutEffect(() => {
+    const el = captionRefs.current[index];
+    if (!el) return;
+    const measure = () => setCaptionH(el.offsetHeight);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [index]);
 
   // click either side of the section (outer 40% of the window) to step through the work
   const { cursorClass, edgeNav } = useEdgeNav({
@@ -148,15 +168,22 @@ export default function DesignWork() {
             </div>
           </div>
 
-          {/* Figma: desc — titles slide vertically and cross-fade (momentum-slider "titles") */}
-          <div className="relative z-10 -mt-6 h-[172px] w-[92%] overflow-hidden bg-[rgb(21_21_21/0.82)] sm:h-[132px] sm:max-w-[420px] lg:absolute lg:bottom-[48px] lg:left-0 lg:mt-0 lg:h-[150px]">
+          {/* Figma: desc — titles slide vertically and cross-fade (momentum-slider "titles"); the box
+              fits the current caption's height */}
+          <div
+            className="relative z-10 -mt-6 w-[92%] max-w-[350px] overflow-hidden bg-[rgb(13_15_34/0.85)] backdrop-blur-[20px] transition-[height] duration-300 ease-out motion-reduce:transition-none lg:absolute lg:bottom-[48px] lg:left-0 lg:mt-0"
+            style={{ height: captionH }}
+          >
             {designWork.map((item, i) => {
               if (!isNear(i, position)) return null;
               return (
                 <div
                   key={i}
+                  ref={(el) => {
+                    captionRefs.current[i] = el;
+                  }}
                   aria-hidden
-                  className="absolute inset-0 flex flex-col justify-center gap-2 py-3 pr-6 pl-2"
+                  className="absolute inset-x-0 top-0 flex flex-col gap-2 p-3"
                   style={{
                     transform: `translateY(${-(i - position) * 100}%)`,
                     opacity: progressOf(i, position),

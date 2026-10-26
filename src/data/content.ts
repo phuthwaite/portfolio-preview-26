@@ -414,7 +414,7 @@ export const caseStudies: CaseStudy[] = [
       "A production-ready, multi-brand email design system in Figma, delivered for Volkswagen Group by Ekino/Havas. Over almost a year, the project ran from discovery and research through design, build and testing to handoff, with full documentation and training for the teams using it. One modular system covers Audi, VW Passenger Cars, VW Commercial Vehicles, Škoda, CUPRA and SEAT, while keeping each brand's identity distinct.",
     ],
     stats: [{ value: "60%", label: "reduction in production time" }],
-    artAlt: "Collage of marketing emails for Volkswagen Group brands including Cupra, Škoda and Volkswagen Financial Services",
+    artAlt: "Marketing emails for Volkswagen Group brands including CUPRA, Škoda, VW, Audi and VW Commercial Vehicles",
     accent: "#b3d7dd",
     href: "#case-studies",
   },
