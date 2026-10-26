@@ -8,6 +8,7 @@ import { CarouselControls } from "../components/CarouselArrows";
 import { designWork } from "../data/content";
 import { progressOf, useMomentumSlider } from "../hooks/useMomentumSlider";
 import { trackOnce } from "../lib/analytics";
+import { useEdgeNav } from "../hooks/useEdgeNav";
 
 const GAP = 40; // px between cards (Figma: item → next item)
 
@@ -41,10 +42,19 @@ export default function DesignWork() {
     e.preventDefault();
   };
 
+  // click either side of the section (outer 40% of the window) to step through the work
+  const { cursorClass, edgeNav } = useEdgeNav({
+    index,
+    count,
+    goTo,
+    wasDragged,
+  });
+
   return (
     <section
       id="design"
-      className="overflow-x-clip pt-[15px] pb-16 lg:min-h-[862px] lg:pb-0"
+      {...edgeNav}
+      className={`overflow-x-clip pt-[15px] pb-16 lg:min-h-[862px] lg:pb-0 ${cursorClass}`}
     >
       <div className="site-container">
         <SectionHeading
@@ -94,7 +104,7 @@ export default function DesignWork() {
           <div className="design-track-fade">
             <div
               {...bind}
-              className="@container relative cursor-grab touch-pan-y select-none [clip-path:inset(-40px_-100vw_-40px_0)] active:cursor-grabbing lg:pl-[140px] lg:[clip-path:inset(-40px_-100vw_-40px_140px)]"
+              className="@container relative touch-pan-y select-none [clip-path:inset(-40px_-100vw_-40px_0)] lg:pl-[140px] lg:[clip-path:inset(-40px_-100vw_-40px_140px)]"
             >
               <div
                 className="flex [--card-w:100cqw] lg:[--card-w:min(882px,100cqw)]"
@@ -114,7 +124,7 @@ export default function DesignWork() {
                       aria-label={`${item.client}: ${item.alt}`}
                       aria-hidden={i !== index}
                       onClick={() => !wasDragged() && goTo(i)}
-                      className="glass-panel relative aspect-[882/499] w-(--card-w) shrink-0 overflow-hidden [--glass-radius:0]"
+                      className="glass-panel relative aspect-[882/499] cursor-[inherit] w-(--card-w) shrink-0 overflow-hidden [--glass-radius:0]"
                       style={{ opacity: 0.44 + 0.56 * p }}
                     >
                       {/* Image zooms from 1.5x to 1x as the card settles (momentum-slider "images") */}

@@ -15,6 +15,7 @@ import { CarouselControls } from "../components/CarouselArrows";
 import { caseStudies, type CaseStudy } from "../data/content";
 import { progressOf, useMomentumSlider } from "../hooks/useMomentumSlider";
 import { trackOnce } from "../lib/analytics";
+import { useEdgeNav } from "../hooks/useEdgeNav";
 
 // Show the stats column on each slide (hidden for now; the data stays in content.ts)
 const SHOW_STATS = false;
@@ -186,6 +187,14 @@ export default function CaseStudies() {
   };
 
   // a drag shouldn't also follow the "Read more" link it started on
+  // click either side of the section (outer 40% of the window) to step through the studies
+  const { cursorClass, edgeNav } = useEdgeNav({
+    index,
+    count,
+    goTo,
+    wasDragged,
+  });
+
   const onClickCapture = (e: MouseEvent) => {
     if (wasDragged()) e.preventDefault();
   };
@@ -195,9 +204,10 @@ export default function CaseStudies() {
       id="case-studies"
       aria-roledescription="carousel"
       aria-label="Case studies"
+      {...edgeNav}
       // The panel spans the full width and clips the artwork. (Figma fills it #1a1a1a; for now it
       // shows the page background like the other sections.)
-      className="relative flex flex-col overflow-hidden pt-[15px] pb-12 lg:block lg:min-h-[max(681px,100vh)] lg:pb-0"
+      className={`relative flex flex-col overflow-hidden pt-[15px] pb-12 lg:block lg:min-h-[max(681px,100vh)] lg:pb-0 ${cursorClass}`}
     >
       {/* the title (with the carousel controls at its right) stays put while the previews change
           beneath it; the controls hide when there's only one study */}

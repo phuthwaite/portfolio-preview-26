@@ -31,7 +31,7 @@ export const profile = {
         "Information Architecture",
         "Design Systems",
         "Responsive & Native Mobile",
-        "Accessibility (WCAG)",
+        "Inclusive & Accessible Design",
         "Visual & Creative Direction",
         "Animation / Motion Design",
         "3D Graphics",
@@ -76,7 +76,8 @@ export const profile = {
   ],
   toolkit: [
     { group: "Design & Prototyping", items: ["Figma", "Framer", "ProtoPie", "Axure RP", "Adobe Creative Cloud"] },
-    { group: "Research & Analytics", items: ["Google Analytics", "Hotjar", "Datadog"] },
+    { group: "User Testing", items: ["Maze", "Userbrain"] },
+    { group: "Analytics & Insights", items: ["Google Analytics", "Hotjar", "Datadog"] },
     { group: "Development", items: ["VS Code", "GitHub", "npm"] },
     { group: "Collaboration", items: ["Miro", "Jira", "Confluence"] },
     { group: "AI", items: ["ChatGPT", "Claude", "Cursor", "Figma AI"] },
@@ -94,10 +95,16 @@ export const profile = {
 };
 
 // From CV_PaulineH_2026
+// The email address is assembled when the page runs, from pieces with no "@" in them, so it never
+// appears whole in the published files for scraping bots to pick up. Visitors see and use it as normal.
+const email = ["hello", ["pixels", "ph"].join(".")].join(String.fromCharCode(64));
+
 export const contact = [
-  { label: "Email", text: "hello@pixels.ph", href: "mailto:hello@pixels.ph" },
+  { label: "Email", text: email, href: `mailto:${email}` },
   { label: "Website", text: "pixels.ph", href: "https://pixels.ph" },
   { label: "LinkedIn", text: "phuthwaite", href: "https://www.linkedin.com/in/phuthwaite" },
+  // public version of the CV (no phone number); lives in public/, so it's served as-is
+  { label: "CV", text: "Download CV", href: "/CV_PaulineHuthwaite_web.pdf" },
 ];
 
 // LinkedIn recommendations, trimmed to their strongest lines (their own words; "…" marks a cut).

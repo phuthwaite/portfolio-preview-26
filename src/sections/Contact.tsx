@@ -17,7 +17,8 @@ export default function Contact() {
         <div className="relative flex flex-col gap-14 pt-10 lg:flex-row lg:items-start lg:gap-16">
           <ul className="flex flex-col gap-10 lg:w-[360px] lg:shrink-0">
             {contact.map((item) => {
-              const external = item.href.startsWith("http");
+              // web links and the CV PDF open in a new tab
+              const external = item.href.startsWith("http") || item.href.endsWith(".pdf");
               return (
                 <li key={item.label} className="flex flex-col gap-2">
                   <Label>{item.label}</Label>

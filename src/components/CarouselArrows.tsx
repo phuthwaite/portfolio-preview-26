@@ -104,7 +104,7 @@ export default function CarouselArrows({
   loop?: boolean;
 }) {
   return (
-    <div className="flex shrink-0 items-center gap-1">
+    <div data-edge-nav-ignore className="flex shrink-0 items-center gap-1">
       <Arrow
         direction="prev"
         size={size}
