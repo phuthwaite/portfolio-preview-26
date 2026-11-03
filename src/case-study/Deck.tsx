@@ -27,29 +27,50 @@ export type DeckDef = {
   slides: SlideDef[];
 };
 
-// A case study as a slide deck, in a full-screen modal over the site. On desktop each slide is a 16:9
-// canvas scaled to fit the window, laid out as in the original deck; on phones its pieces stack in one
-// scrolling column. Arrows, dots, arrow keys, swipe and clicking either side move between slides; Escape,
-// the close button or Back closes it.
+// A case study as a slide deck, in a modal panel over the site: inset from the window's edges with the page
+// dimmed behind it, easing in on open and out on close. On desktop the panel is one 16:9 slide, as large as
+// fits, laid out as in the original deck; on phones its pieces stack in one scrolling column. Arrows, dots,
+// arrow keys, swipe and clicking either side move between slides; Escape, the close button or Back closes it,
+// leaving the page scrolled where it was and focus back on the link that opened it.
+const CLOSE_MS = 220;
 export default function Deck({ deck }: { deck: DeckDef }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [index, setIndex] = useState(0);
   const count = deck.slides.length;
   const goTo = (i: number) => setIndex(Math.max(0, Math.min(count - 1, i)));
 
-  // open as a modal (focus stays inside; the page behind can't scroll), and put things back on close
+  // whatever had focus before the deck opened (usually its "Read more" link), noted before the dialog takes focus
+  const [opener] = useState(() => (document.activeElement instanceof HTMLElement && document.activeElement !== document.body ? document.activeElement : null));
+
+  // open as a modal (focus stays inside; the page behind can't scroll), and put the page back exactly as it
+  // was on close: scroll position (the browser's own history scrolling is turned off meanwhile, so going
+  // back doesn't move it), title and focus
   useEffect(() => {
+    const root = document.documentElement;
+    const before = { overflow: root.style.overflow, restoration: history.scrollRestoration, title: document.title };
+    const scroll = { x: window.scrollX, y: window.scrollY };
     const d = dialog.current!;
     if (!d.open) d.showModal();
-    const root = document.documentElement;
-    const before = root.style.overflow;
-    const title = document.title;
+    history.scrollRestoration = "manual";
     root.style.overflow = "hidden";
     return () => {
-      root.style.overflow = before;
-      document.title = title;
+      root.style.overflow = before.overflow;
+      document.title = before.title;
+      window.scrollTo({ left: scroll.x, top: scroll.y, behavior: "instant" });
+      opener?.focus({ preventScroll: true });
+      // after the history step that closed the deck has finished
+      setTimeout(() => (history.scrollRestoration = before.restoration), 100);
     };
-  }, []);
+  }, [opener]);
+
+  // ease out, then leave the deck's address (which unmounts it)
+  const [closing, setClosing] = useState(false);
+  const close = () => {
+    if (closing) return;
+    setClosing(true);
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setTimeout(closeDeck, reduce ? 0 : CLOSE_MS);
+  };
 
   useEffect(() => {
     document.title = `${deck.title} · ${deck.client} — Pauline Huthwaite`;
@@ -82,13 +103,18 @@ export default function Deck({ deck }: { deck: DeckDef }) {
       aria-label={`${deck.client} case study: ${deck.title}`}
       onCancel={(e) => {
         e.preventDefault();
-        closeDeck();
+        close();
       }}
       onKeyDown={onKeyDown}
-      className="m-0 h-dvh max-h-none w-dvw max-w-none overflow-hidden bg-[#050914] p-0 text-white backdrop:bg-[#050914]"
+      className={`m-auto h-[calc(100dvh-24px)] max-h-none w-[calc(100dvw-24px)] max-w-none overflow-hidden rounded-2xl border border-white/10 bg-[#050914] p-0 text-white shadow-[0_24px_80px_rgb(0_0_0/0.6)] transition-[opacity,scale,translate] ease-out backdrop:bg-[#030714]/65 backdrop:backdrop-blur-[3px] backdrop:transition-opacity backdrop:ease-out motion-reduce:transition-none motion-reduce:backdrop:transition-none starting:translate-y-6 starting:scale-[0.97] starting:opacity-0 starting:backdrop:opacity-0 lg:h-[min(calc(100dvh-64px),calc((100dvw-64px)*9/16))] lg:w-[min(calc(100dvw-64px),calc((100dvh-64px)*16/9))] ${
+        closing
+          ? "translate-y-3 scale-[0.98] opacity-0 duration-200 backdrop:opacity-0 backdrop:duration-200"
+          : "duration-500 backdrop:duration-500"
+      }`}
     >
+      {/* sized as a container, so a slide can fit itself to the panel */}
       <div
-        className={`relative h-full ${cursorClass}`}
+        className={`relative h-full [container-type:size] ${cursorClass}`}
         aria-roledescription="carousel"
         aria-label="Slides"
         onTouchStart={onTouchStart}
@@ -110,7 +136,7 @@ export default function Deck({ deck }: { deck: DeckDef }) {
               }`}
             >
               {/* the slide: a 16:9 canvas, as large as fits (sizes inside are in cqw of its width) */}
-              <div className="relative isolate min-h-full overflow-hidden px-5 pt-20 pb-28 [container-type:inline-size] sm:px-10 lg:aspect-video lg:min-h-0 lg:w-[min(100vw,177.78dvh)] lg:p-0">
+              <div className="relative isolate min-h-full overflow-hidden px-5 pt-20 pb-28 [container-type:inline-size] sm:px-10 lg:aspect-video lg:min-h-0 lg:w-[min(100cqw,177.78cqh)] lg:p-0">
                 <img src={deck.backgrounds[slide.bg]} alt="" aria-hidden className="absolute inset-0 -z-20 size-full object-cover" />
                 <div aria-hidden className="absolute inset-0 -z-10 bg-black/18" />
                 <div className="flex flex-col gap-8 lg:contents">{slide.content}</div>
@@ -124,7 +150,7 @@ export default function Deck({ deck }: { deck: DeckDef }) {
       {/* close, top right */}
       <button
         type="button"
-        onClick={closeDeck}
+        onClick={close}
         aria-label="Close case study"
         data-edge-nav-ignore
         className="absolute top-3 right-3 z-20 flex size-10 cursor-pointer items-center justify-center rounded-full border border-white/25 bg-[#030714]/40 text-white backdrop-blur transition-colors hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:outline-none"
