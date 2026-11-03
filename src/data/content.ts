@@ -17,9 +17,12 @@ export type SectionId = (typeof navItems)[number]["id"];
 // From CV_PaulineH_2026
 export const profile = {
   // TODO: the CV has no written bio, so this is its headline; replace with an intro in your own words.
-  about: ["Product and experience Designer with 20+ years' experience leading the design of digital products for global brands across travel, media, entertainment, gaming, technology and ecommerce.","Experienced in shaping product strategy, leading end-to-end design across the full product lifecycle, and collaborating with cross-functional teams to deliver user-centred, commercially effective solutions.",
+  about: [
+    "Product and experience Designer with 20+ years' experience leading the design of digital products for global brands across travel, media, entertainment, gaming, technology and ecommerce.",
+    "Experienced in shaping product strategy, leading end-to-end design across the full product lifecycle, and collaborating with cross-functional teams to deliver user-centred, commercially effective solutions.",
     "Combining strong UX research, interaction design and visual design expertise with practical application of AI to enhance research, ideation, prototyping and design workflows, improving both team efficiency and product outcomes.",
-    "Hands-on front-end skills (HTML, CSS, JavaScript, React) for prototyping in code and working closely with engineering to see designs through to production."],
+    "Hands-on front-end skills (HTML, CSS, JavaScript, React) for prototyping in code and working closely with engineering to see designs through to production.",
+  ],
   // Grouped by the part of the job they apply to
   skillset: [
     {
@@ -61,7 +64,13 @@ export const profile = {
     {
       // designs built by hand, not just handed over (or left to AI)
       group: "Front-end Development",
-      items: ["HTML, CSS & JavaScript", "React", "Node.js", "Coded Prototypes", "Working in Dev Frameworks"],
+      items: [
+        "HTML, CSS & JavaScript",
+        "React",
+        "Node.js",
+        "Coded Prototypes",
+        "Working in Dev Frameworks",
+      ],
     },
     {
       group: "Delivery & Leadership",
@@ -75,9 +84,21 @@ export const profile = {
     },
   ],
   toolkit: [
-    { group: "Design & Prototyping", items: ["Figma", "Framer", "ProtoPie", "Axure RP", "Adobe Creative Cloud"] },
+    {
+      group: "Design & Prototyping",
+      items: [
+        "Figma",
+        "Framer",
+        "ProtoPie",
+        "Axure RP",
+        "Adobe Creative Cloud",
+      ],
+    },
     { group: "User Testing", items: ["Maze", "Userbrain"] },
-    { group: "Analytics & Insights", items: ["Google Analytics", "Hotjar", "Datadog"] },
+    {
+      group: "Analytics & Insights",
+      items: ["Google Analytics", "Hotjar", "Datadog"],
+    },
     { group: "Development", items: ["VS Code", "GitHub", "npm"] },
     { group: "Collaboration", items: ["Miro", "Jira", "Confluence"] },
     { group: "AI", items: ["ChatGPT", "Claude", "Cursor", "Figma AI"] },
@@ -89,27 +110,45 @@ export const profile = {
       year: "2003",
       institution: "University of the West of Scotland",
     },
-    { qualification: "HND Digital Art & Design with Merit", year: "2002", institution: "City of Glasgow College" },
+    {
+      qualification: "HND Digital Art & Design with Merit",
+      year: "2002",
+      institution: "City of Glasgow College",
+    },
   ],
-  interests: ["Travel", "Photography", "Gigs & Festivals", "Snowboarding", "Rollercoasters", "VR / AR / XR"],
+  interests: [
+    "Travel",
+    "Photography",
+    "Gigs & Festivals",
+    "Snowboarding",
+    "Rollercoasters",
+    "VR / AR / XR",
+  ],
 };
 
 // From CV_PaulineH_2026
 // The email address is assembled when the page runs, from pieces with no "@" in them, so it never
 // appears whole in the published files for scraping bots to pick up. Visitors see and use it as normal.
-const email = ["hello", ["pixels", "ph"].join(".")].join(String.fromCharCode(64));
+const email = ["hello", ["pixels", "ph"].join(".")].join(
+  String.fromCharCode(64),
+);
 
 export const contact = [
   { label: "Email", text: email, href: `mailto:${email}` },
   { label: "Website", text: "pixels.ph", href: "https://pixels.ph" },
-  { label: "LinkedIn", text: "phuthwaite", href: "https://www.linkedin.com/in/phuthwaite" },
+  {
+    label: "LinkedIn",
+    text: "phuthwaite",
+    href: "https://www.linkedin.com/in/phuthwaite",
+  },
   // public version of the CV (no phone number); lives in public/, so it's served as-is
   { label: "CV", text: "Download CV", href: "/CV_PaulineHuthwaite_web.pdf" },
 ];
 
 // LinkedIn recommendations, trimmed to their strongest lines (their own words; "…" marks a cut).
 // The full versions are on LinkedIn (recommendationsUrl).
-export const recommendationsUrl = "https://www.linkedin.com/in/phuthwaite/details/recommendations/";
+export const recommendationsUrl =
+  "https://www.linkedin.com/in/phuthwaite/details/recommendations/";
 
 export type Testimonial = {
   quote: string;
@@ -176,6 +215,9 @@ export type Job = {
   role: string;
   period: string;
   type: "Permanent" | "Contract";
+  /** One-line summary shown on every recent role (what the product was, and its scale) */
+  brief?: string;
+  /** The full CV blurb, shown when "Details" is switched on */
   summary: string;
   /** Bulleted key projects, shown under the summary */
   highlights?: string[];
@@ -190,40 +232,48 @@ export const experience: Job[] = [
     role: "Director, UX Design",
     period: "2023–2026",
     type: "Permanent",
+    brief:
+      "Travel experience platform for millions of travellers, powering partners including On The Beach and Secret Escapes.",
     summary:
-      "Leading UX on a travel experience platform connecting millions of travellers with curated activities worldwide. Ownership of the full E2E discovery, recommendation, booking and checkout journey for global B2B2C partners – including On The Beach, Secret Escapes, Amadeus, and NEOM – shaping the consumer-facing experience layer that balances partner flexibility with emotionally engaging UX.",
+      "Led UX across the platform, owning the end-to-end discovery, recommendation, booking and checkout journey for global B2B2C partners such as Amadeus and NEOM. Shaped the consumer-facing experience layer, balancing partner flexibility with emotionally engaging UX.",
   },
   {
     company: "Volkswagen Group / Havas",
     role: "Experience Lead",
     period: "2021–2022",
     type: "Contract",
+    brief:
+      "CRM email for six Volkswagen Group brands, delivered with Ekino/Havas.",
     summary:
-      "Created a Figma-based multi-brand email design system spanning six marques – Volkswagen, Volkswagen Commercial Vehicles, Audi, Škoda, SEAT, and Cupra – with interchangeable brand and component libraries, production-ready responsive templates, and comprehensive documentation covering complex, diverse customer journeys.",
+      "Led the experience design of a Figma-based email design system: interchangeable brand and component libraries, production-ready responsive templates, and comprehensive documentation covering complex customer journeys across VW Passenger Cars, VW Commercial Vehicles, Audi, Škoda, SEAT and CUPRA.",
   },
   {
     company: "reacHIRE",
     role: "UX Lead",
     period: "2020–2022",
     type: "Contract",
+    brief:
+      "‘Aurora’, a career development and coaching platform for professionals returning to work.",
     summary:
-      "Designed web and native app UX/UI for ‘Aurora’, a career development and coaching platform supporting professionals returning to the workforce.",
+      "Designed the UX and UI for Aurora’s web and native apps, building robust design patterns the team continued to use for new features.",
   },
   {
     company: "Samsung / Cheil UK",
     role: "Senior UX Consultant",
     period: "2021",
     type: "Contract",
+    brief: "Samsung’s UK ecommerce and digital platforms.",
     summary:
-      "Optimised UX across Samsung’s UK digital platforms – including live AR shopping, loyalty rewards, ratings and reviews and E2E purchase journeys.",
+      "Optimised UX across the platforms, including live AR shopping, loyalty rewards, ratings and reviews, end-to-end purchase journeys and the Galaxy S21 launch rewards campaign.",
   },
   {
     company: "AXS Europe",
     role: "Senior UX Designer",
     period: "2017–2021",
     type: "Permanent",
+    brief: "Global ticketing platform for live music and sports events.",
     summary:
-      "Sole UK-based UXD resource, working with cross-functional teams to deliver business-focused, user-friendly digital ticketing solutions for global live music and sports events. Key projects:",
+      "The sole UK-based UX designer, working with cross-functional teams to deliver business-focused, user-friendly ticketing. Key projects:",
     highlights: [
       "UX & UI design of ticket purchasing and management flows, specifically for The O2 VIP and Swedish Elite Football partner projects.",
       "Design and prototype creation of multi-brand, multi-lingual email templates, compatible with proprietary systems, optimising UX in a clear and understandable customisable format.",
@@ -235,31 +285,35 @@ export const experience: Job[] = [
     role: "Lead UX Designer",
     period: "2016–2017",
     type: "Contract",
+    brief: "International ecommerce site for the luxury lifestyle retailer.",
     summary:
-      "Led a redesign of product and checkout journeys across the international ecommerce site – from data analysis and competitor benchmarking through iterative prototyping to C-level stakeholder presentations and developer handoff.",
+      "Led a redesign of product and checkout journeys, from data analysis and competitor benchmarking through iterative prototyping to C-level stakeholder presentations and developer handoff.",
   },
   {
     company: "TripAdvisor",
     role: "Senior Visual Designer",
     period: "2015",
     type: "Contract",
-    summary: "Visual design for the world’s largest travel review and discovery platform.",
+    summary:
+      "Visual design for the world’s largest travel review and discovery platform.",
     earlier: true,
   },
   {
-    company: "SkyScanner",
+    company: "Skyscanner",
     role: "Senior Visual Designer",
     period: "2015",
     type: "Contract",
-    summary: "Design for a B2B travel product incorporating booking and itinerary management for corporate travellers.",
+    summary:
+      "Design for a B2B travel product incorporating booking and itinerary management for corporate travellers.",
     earlier: true,
   },
   {
     company: "Karen Millen",
-    role: "Front-End Developer",
+    role: "Front-end Developer",
     period: "2014",
     type: "Contract",
-    summary: "Front-end development for the luxury fashion retailer’s ecommerce platform.",
+    summary:
+      "Front-end development for the luxury fashion retailer’s ecommerce platform.",
     earlier: true,
   },
   {
@@ -271,7 +325,7 @@ export const experience: Job[] = [
     earlier: true,
   },
   {
-    company: "Marks and Spencer",
+    company: "Marks & Spencer",
     role: "Senior Digital Designer",
     period: "2011–2012",
     type: "Contract",
@@ -291,7 +345,8 @@ export const experience: Job[] = [
     role: "Digital Design Lead",
     period: "2007–2010",
     type: "Permanent",
-    summary: "Led the digital design team for the UK’s iconic music and entertainment retailer.",
+    summary:
+      "Led the digital design team for the UK’s iconic music and entertainment retailer.",
     earlier: true,
   },
   {
@@ -299,7 +354,8 @@ export const experience: Job[] = [
     role: "Senior Web Designer / Developer",
     period: "2007",
     type: "Permanent",
-    summary: "Web design and development for one of gaming’s most recognised brands.",
+    summary:
+      "Web design and development for one of gaming’s most recognised brands.",
     earlier: true,
   },
 ];
@@ -317,45 +373,270 @@ export type DesignWorkItem = {
 
 // Images live in src/assets/gallery (copied from the old site). Every file in that folder is
 // bundled, so keep it to the images listed here.
-const gallery = import.meta.glob<string>("../assets/gallery/*", { eager: true, import: "default" });
+const gallery = import.meta.glob<string>("../assets/gallery/*", {
+  eager: true,
+  import: "default",
+});
 const img = (file: string) => gallery[`../assets/gallery/${file}`];
 
 // Slides and captions from the old site's "Design Work" galleries; captions for images it never
 // showed (sam-journeymap, axs1, axs-pdf, ps-hippo2, twc1, twc-fragrance, mns-feature, sega1) describe
 // what's pictured.
 export const designWork: DesignWorkItem[] = [
-  { client: "Samsung", year: "2021", image: img("sam-report.png"), alt: "Samsung UX report", description: "UX report of research and recommendations for improvements to the ‘Ratings & Reviews’ feature used across samsung.co.uk." },
-  { client: "Samsung", year: "2021", image: img("sam-recs.png"), alt: "Samsung UX recommendations", description: "UX recommendations for ‘Ratings & Reviews’, detailing LOE estimations and ‘quick wins’." },
-  { client: "Samsung", year: "2021", image: img("sam-proto.png"), alt: "Samsung Neo QLED prototype", fit: "contain", description: "ProtoPie prototype demonstrating UX optimisation & interactions for the Neo QLED TV feature page." },
-  { client: "Samsung", year: "2021", image: img("sam-noted.png"), alt: "Annotated Samsung wireframes", fit: "contain", description: "UX wireframes, annotated with the reasoning behind design decisions." },
-  { client: "Samsung", year: "2021", image: img("sam-journeymap.png"), alt: "Samsung QLED journey map", description: "Journey flow mapping how users move from the QLED feature page through to product detail pages." },
-  { client: "AXS Europe", year: "2017–2021", image: img("axs-flash.png"), alt: "AXS Flash tickets microsite", description: "UX/UI design and animations for a responsive microsite introducing the “Flash” digital ticket format." },
-  { client: "AXS Europe", year: "2017–2021", image: img("axs-sef.png"), alt: "AXS ticketing for Swedish elite football", description: "Responsive redesign of ticket purchasing & management for top-tier Swedish football and hockey teams." },
-  { client: "AXS Europe", year: "2017–2021", image: img("axs1.png"), alt: "AXS wireframes and user flows", description: "Wireframes and user flows for season, match and pot ticket purchasing, and delivery selection in checkout." },
-  { client: "AXS Europe", year: "2017–2021", image: img("axs-emails.png"), alt: "AXS ticket emails", description: "UX/UI design and build of multi-brand transactional email templates." },
-  { client: "AXS Europe", year: "2017–2021", image: img("axs-pdf.png"), alt: "AXS mobile and print-at-home tickets", description: "Mobile and print-at-home ticket designs." },
-  { client: "PokerStars", year: "2013", image: img("ps-nacho.png"), alt: "Team PokerStars microsite", description: "Visual design and branding for the ‘Team PokerStars’ player microsite." },
-  { client: "PokerStars", year: "2013", image: img("ps-hippo.png"), alt: "PokerStars Live website", description: "UX/UI and visual design of microsite templates for ‘PokerStars Live’ casino rooms across Europe." },
-  { client: "PokerStars", year: "2013", image: img("ps-hippo2.png"), alt: "PokerStars Live microsite on laptop and tablet", description: "‘PokerStars Live’ microsite templates across desktop and tablet." },
-  { client: "PokerStars", year: "2013", image: img("ps-2d.png"), alt: "PokerStars 2D graphics", description: "2D graphics created for various PokerStars campaigns and promotions." },
-  { client: "PokerStars", year: "2013", image: img("ps-3d.png"), alt: "PokerStars 3D graphics", description: "3D assets created in Cinema 4D for various PokerStars campaigns and promotions." },
-  { client: "TripAdvisor", year: "2015", image: img("ta_emails-photo.png"), alt: "TripAdvisor emails", description: "Visual design of multi-branded marketing, onboarding and transactional emails for vacation rental markets." },
-  { client: "TripAdvisor", year: "2015", image: img("ta_emails-resp.png"), alt: "TripAdvisor responsive emails", description: "Visual design of C2C and B2C responsive emails." },
-  { client: "TripAdvisor", year: "2015", image: img("ta_weather-trig.png"), alt: "Holiday Lettings weather-triggered emails", description: "Concept designs for weather-triggered B2C emails for TA sub-brand Holiday Lettings." },
-  { client: "The White Company", year: "2017", image: img("twc-process.png"), alt: "The White Company UX artefacts", description: "UX artefacts: flow diagrams, responsive grid templates, research and documentation." },
-  { client: "The White Company", year: "2017", image: img("twc-clothing.png"), alt: "The White Company product pages", description: "Clothing product detail pages; before and after." },
-  { client: "The White Company", year: "2017", image: img("twc-fragrance.png"), alt: "The White Company fragrance pages", description: "Fragrance category and product pages across desktop and mobile." },
-  { client: "The White Company", year: "2017", image: img("twc1.png"), alt: "The White Company flows and templates", description: "Site flows, wireframes and responsive templates for product pages." },
-  { client: "Universal Music Group", year: "2011", image: img("umg-web.png"), alt: "Artist microsites", fit: "contain", description: "Design & development of artist microsites for Semi Precious Weapons and Mary J. Blige." },
-  { client: "Skyscanner", year: "2015", image: img("ss-responsive.png"), alt: "Skyscanner business travel app", description: "Responsive UI design for a business travel management & booking app." },
-  { client: "Skyscanner", year: "2015", image: img("ss-phones.png"), alt: "Skyscanner app on phones", fit: "contain", description: "Responsive UI design for a business travel management & booking app." },
-  { client: "T.M. Lewin", year: "2014", image: img("tml_emails.png"), alt: "T.M. Lewin emails", description: "Visual design of responsive marketing emails." },
-  { client: "Christie’s", year: "2014", image: img("chr_emails.png"), alt: "Christie’s emails", description: "Design & build of responsive marketing emails." },
-  { client: "Karen Millen", year: "2013", image: img("km-web.png"), alt: "Karen Millen microsite", description: "Front-end development of a responsive parallax microsite for a global ATL fashion campaign." },
-  { client: "BBC / YouView", year: "2011", image: img("yv-screens.png"), alt: "YouView screens", description: "UX/UI design of setup & settings screens for a new digital television service." },
-  { client: "Marks & Spencer", year: "2012", image: img("mns-web.png"), alt: "Marks & Spencer feature pages", fit: "contain", description: "Visual design of feature pages across marksandspencer.com." },
-  { client: "Marks & Spencer", year: "2012", image: img("mns-feature.png"), alt: "Marks & Spencer feature pages", description: "Feature pages and style guides, from gift cards to seasonal edits." },
-  { client: "SEGA", image: img("sega1.png"), alt: "SEGA game promotions", description: "Promotional banners and game microsites, including Sega Rally, Iron Man and Beijing 2008." },
+  {
+    client: "Samsung",
+    year: "2021",
+    image: img("sam-report.png"),
+    alt: "Samsung UX report",
+    description:
+      "UX report of research and recommendations for improvements to the ‘Ratings & Reviews’ feature used across samsung.co.uk.",
+  },
+  {
+    client: "Samsung",
+    year: "2021",
+    image: img("sam-recs.png"),
+    alt: "Samsung UX recommendations",
+    description:
+      "UX recommendations for ‘Ratings & Reviews’, detailing LOE estimations and ‘quick wins’.",
+  },
+  {
+    client: "Samsung",
+    year: "2021",
+    image: img("sam-proto.png"),
+    alt: "Samsung Neo QLED prototype",
+    fit: "contain",
+    description:
+      "ProtoPie prototype demonstrating UX optimisation & interactions for the Neo QLED TV feature page.",
+  },
+  {
+    client: "Samsung",
+    year: "2021",
+    image: img("sam-noted.png"),
+    alt: "Annotated Samsung wireframes",
+    fit: "contain",
+    description:
+      "UX wireframes, annotated with the reasoning behind design decisions.",
+  },
+  {
+    client: "Samsung",
+    year: "2021",
+    image: img("sam-journeymap.png"),
+    alt: "Samsung QLED journey map",
+    description:
+      "Journey flow mapping how users move from the QLED feature page through to product detail pages.",
+  },
+  {
+    client: "AXS Europe",
+    year: "2017–2021",
+    image: img("axs-flash.png"),
+    alt: "AXS Flash tickets microsite",
+    description:
+      "UX/UI design and animations for a responsive microsite introducing the “Flash” digital ticket format.",
+  },
+  {
+    client: "AXS Europe",
+    year: "2017–2021",
+    image: img("axs-sef.png"),
+    alt: "AXS ticketing for Swedish elite football",
+    description:
+      "Responsive redesign of ticket purchasing & management for top-tier Swedish football and hockey teams.",
+  },
+  {
+    client: "AXS Europe",
+    year: "2017–2021",
+    image: img("axs1.png"),
+    alt: "AXS wireframes and user flows",
+    description:
+      "Wireframes and user flows for season, match and pot ticket purchasing, and delivery selection in checkout.",
+  },
+  {
+    client: "AXS Europe",
+    year: "2017–2021",
+    image: img("axs-emails.png"),
+    alt: "AXS ticket emails",
+    description:
+      "UX/UI design and build of multi-brand transactional email templates.",
+  },
+  {
+    client: "AXS Europe",
+    year: "2017–2021",
+    image: img("axs-pdf.png"),
+    alt: "AXS mobile and print-at-home tickets",
+    description: "Mobile and print-at-home ticket designs.",
+  },
+  {
+    client: "PokerStars",
+    year: "2013",
+    image: img("ps-nacho.png"),
+    alt: "Team PokerStars microsite",
+    description:
+      "Visual design and branding for the ‘Team PokerStars’ player microsite.",
+  },
+  {
+    client: "PokerStars",
+    year: "2013",
+    image: img("ps-hippo.png"),
+    alt: "PokerStars Live website",
+    description:
+      "UX/UI and visual design of microsite templates for ‘PokerStars Live’ casino rooms across Europe.",
+  },
+  {
+    client: "PokerStars",
+    year: "2013",
+    image: img("ps-hippo2.png"),
+    alt: "PokerStars Live microsite on laptop and tablet",
+    description:
+      "‘PokerStars Live’ microsite templates across desktop and tablet.",
+  },
+  {
+    client: "PokerStars",
+    year: "2013",
+    image: img("ps-2d.png"),
+    alt: "PokerStars 2D graphics",
+    description:
+      "2D graphics created for various PokerStars campaigns and promotions.",
+  },
+  {
+    client: "PokerStars",
+    year: "2013",
+    image: img("ps-3d.png"),
+    alt: "PokerStars 3D graphics",
+    description:
+      "3D assets created in Cinema 4D for various PokerStars campaigns and promotions.",
+  },
+  {
+    client: "TripAdvisor",
+    year: "2015",
+    image: img("ta_emails-photo.png"),
+    alt: "TripAdvisor emails",
+    description:
+      "Visual design of multi-branded marketing, onboarding and transactional emails for vacation rental markets.",
+  },
+  {
+    client: "TripAdvisor",
+    year: "2015",
+    image: img("ta_emails-resp.png"),
+    alt: "TripAdvisor responsive emails",
+    description: "Visual design of C2C and B2C responsive emails.",
+  },
+  {
+    client: "TripAdvisor",
+    year: "2015",
+    image: img("ta_weather-trig.png"),
+    alt: "Holiday Lettings weather-triggered emails",
+    description:
+      "Concept designs for weather-triggered B2C emails for TA sub-brand Holiday Lettings.",
+  },
+  {
+    client: "The White Company",
+    year: "2017",
+    image: img("twc-process.png"),
+    alt: "The White Company UX artefacts",
+    description:
+      "UX artefacts: flow diagrams, responsive grid templates, research and documentation.",
+  },
+  {
+    client: "The White Company",
+    year: "2017",
+    image: img("twc-clothing.png"),
+    alt: "The White Company product pages",
+    description: "Clothing product detail pages; before and after.",
+  },
+  {
+    client: "The White Company",
+    year: "2017",
+    image: img("twc-fragrance.png"),
+    alt: "The White Company fragrance pages",
+    description:
+      "Fragrance category and product pages across desktop and mobile.",
+  },
+  {
+    client: "The White Company",
+    year: "2017",
+    image: img("twc1.png"),
+    alt: "The White Company flows and templates",
+    description:
+      "Site flows, wireframes and responsive templates for product pages.",
+  },
+  {
+    client: "Universal Music Group",
+    year: "2011",
+    image: img("umg-web.png"),
+    alt: "Artist microsites",
+    fit: "contain",
+    description:
+      "Design & development of artist microsites for Semi Precious Weapons and Mary J. Blige.",
+  },
+  {
+    client: "Skyscanner",
+    year: "2015",
+    image: img("ss-responsive.png"),
+    alt: "Skyscanner business travel app",
+    description:
+      "Responsive UI design for a business travel management & booking app.",
+  },
+  {
+    client: "Skyscanner",
+    year: "2015",
+    image: img("ss-phones.png"),
+    alt: "Skyscanner app on phones",
+    fit: "contain",
+    description:
+      "Responsive UI design for a business travel management & booking app.",
+  },
+  {
+    client: "T.M. Lewin",
+    year: "2014",
+    image: img("tml_emails.png"),
+    alt: "T.M. Lewin emails",
+    description: "Visual design of responsive marketing emails.",
+  },
+  {
+    client: "Christie’s",
+    year: "2014",
+    image: img("chr_emails.png"),
+    alt: "Christie’s emails",
+    description: "Design & build of responsive marketing emails.",
+  },
+  {
+    client: "Karen Millen",
+    year: "2013",
+    image: img("km-web.png"),
+    alt: "Karen Millen microsite",
+    description:
+      "Front-end development of a responsive parallax microsite for a global ATL fashion campaign.",
+  },
+  {
+    client: "BBC / YouView",
+    year: "2011",
+    image: img("yv-screens.png"),
+    alt: "YouView screens",
+    description:
+      "UX/UI design of setup & settings screens for a new digital television service.",
+  },
+  {
+    client: "Marks & Spencer",
+    year: "2012",
+    image: img("mns-web.png"),
+    alt: "Marks & Spencer feature pages",
+    fit: "contain",
+    description: "Visual design of feature pages across marksandspencer.com.",
+  },
+  {
+    client: "Marks & Spencer",
+    year: "2012",
+    image: img("mns-feature.png"),
+    alt: "Marks & Spencer feature pages",
+    description:
+      "Feature pages and style guides, from gift cards to seasonal edits.",
+  },
+  {
+    client: "SEGA",
+    image: img("sega1.png"),
+    alt: "SEGA game promotions",
+    description:
+      "Promotional banners and game microsites, including Sega Rally, Iron Man and Beijing 2008.",
+  },
 ];
 
 export type CaseStudy = {
@@ -382,7 +663,7 @@ const placeholderSummary = [
 ];
 
 // Figma: HB 2, VW 2, SS 2, AXS 2, TWC 2 — ordered most recent first, as in Experience.
-// TODO: point each `href` at its case study page once it exists.
+// `href`: the study's full page (/case-studies/<id>) once it exists; "#case-studies" until then.
 export const caseStudies: CaseStudy[] = [
   {
     id: "holibob",
@@ -398,7 +679,8 @@ export const caseStudies: CaseStudy[] = [
       { value: "90%", label: "conversion rate increase" },
       { value: "50%", label: "engagement rate" },
     ],
-    artAlt: "Holibob travel app screens: welcome, recommended tour and tour details",
+    artAlt:
+      "Holibob travel app screens: welcome, recommended tour and tour details",
     accent: "#6fcdc4",
     href: "#case-studies",
   },
@@ -414,7 +696,8 @@ export const caseStudies: CaseStudy[] = [
       "A production-ready, multi-brand email design system in Figma, delivered for Volkswagen Group by Ekino/Havas. Over almost a year, the project ran from discovery and research through design, build and testing to handoff, with full documentation and training for the teams using it. One modular system covers Audi, VW Passenger Cars, VW Commercial Vehicles, Škoda, CUPRA and SEAT, while keeping each brand's identity distinct.",
     ],
     stats: [{ value: "60%", label: "reduction in production time" }],
-    artAlt: "Marketing emails for Volkswagen Group brands including CUPRA, Škoda, VW, Audi and VW Commercial Vehicles",
+    artAlt:
+      "Marketing emails for Volkswagen Group brands including CUPRA, Škoda, VW, Audi and VW Commercial Vehicles",
     accent: "#b3d7dd",
     href: "#case-studies",
   },
@@ -429,10 +712,14 @@ export const caseStudies: CaseStudy[] = [
     summary: [
       "The UK launch campaign for the Galaxy S21: an end-to-end rewards journey to onboard new flagship owners while also capturing upgrades from older Samsung models and trade-ins from other brands. The design streamlined complex token distribution and copying codes between apps into a friction-free redemption path, maximising post-purchase satisfaction across the launch window.",
     ],
-    stats: [{ value: "3", label: "Targeted User Flows" }, { value: "8+", label: "Global Partner Integrations" }, { value: "E2E", label: "Conversion & Redemption Logic" }],
+    stats: [
+      { value: "3", label: "Targeted User Flows" },
+      { value: "8+", label: "Global Partner Integrations" },
+      { value: "E2E", label: "Conversion & Redemption Logic" },
+    ],
     artAlt: "The Galaxy S21 Boost rewards page on desktop and mobile",
     accent: "#7178f5",
-    href: "#case-studies",
+    href: "/case-studies/samsung",
   },
   {
     id: "axs",
@@ -445,9 +732,13 @@ export const caseStudies: CaseStudy[] = [
     summary: placeholderSummary,
     stats: [
       { value: "97%", label: "open rate" },
-      { value: "12%", label: "reduction in ticket-related customer support queries" },
+      {
+        value: "12%",
+        label: "reduction in ticket-related customer support queries",
+      },
     ],
-    artAlt: "Printed and folded AXS e-tickets for a Wasps v Harlequins rugby match",
+    artAlt:
+      "Printed and folded AXS e-tickets for a Wasps v Harlequins rugby match",
     accent: "#3397ff",
     href: "#case-studies",
   },
@@ -465,7 +756,10 @@ export const caseStudies: CaseStudy[] = [
     stats: [
       { value: "17%", label: "conversion rate increase" },
       // TODO: this stat is identical to one on the AXS slide in Figma; check it's right for TWC.
-      { value: "12%", label: "reduction in ticket-related customer support queries" },
+      {
+        value: "12%",
+        label: "reduction in ticket-related customer support queries",
+      },
     ],
     artAlt: "The White Company product page on desktop and mobile",
     accent: "#dddddd",

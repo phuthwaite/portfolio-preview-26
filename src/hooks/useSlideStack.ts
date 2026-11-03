@@ -127,12 +127,25 @@ export function useSlideStack(container: RefObject<HTMLElement | null>) {
     document.addEventListener("click", onClick);
     measure();
 
+    // Arriving with a section in the address (e.g. /#case-studies from a case study page's back link):
+    // jump straight to that slide once the page has been measured
+    const arrivedAt = window.location.hash.slice(1);
+    const arrivedTarget = arrivedAt ? document.getElementById(arrivedAt) : null;
+    const arrivedSlide = arrivedTarget ? slides.findIndex((s) => s.contains(arrivedTarget)) : -1;
+    const jumpToArrival = () => window.scrollTo({ top: tops[arrivedSlide], behavior: "instant" });
+    if (arrivedSlide >= 0) {
+      jumpToArrival();
+      // again once images have loaded and the slides' heights have settled
+      if (document.readyState !== "complete") window.addEventListener("load", jumpToArrival, { once: true });
+    }
+
     return () => {
       cancelAnimationFrame(frame);
       resize.disconnect();
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", measure);
       mq.removeEventListener("change", measure);
+      window.removeEventListener("load", jumpToArrival);
       document.removeEventListener("click", onClick);
       snapLayer.remove();
       document.documentElement.style.scrollSnapType = "";

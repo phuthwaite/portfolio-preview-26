@@ -16,6 +16,8 @@ import { caseStudies, type CaseStudy } from "../data/content";
 import { progressOf, useMomentumSlider } from "../hooks/useMomentumSlider";
 import { trackOnce } from "../lib/analytics";
 import { useEdgeNav } from "../hooks/useEdgeNav";
+import { caseStudyDecks } from "../case-study/pages";
+import { openDeck } from "../case-study/deckRoute";
 
 // Show the stats column on each slide (hidden for now; the data stays in content.ts)
 const SHOW_STATS = false;
@@ -33,6 +35,7 @@ function CaseStudyPreview({
   offset: number;
 }) {
   const { Art, crop, shiftX = 0 } = caseStudyArt[study.id];
+  const external = study.href.startsWith("http");
   const p = progressOf(0, offset);
   // text hands over at the midpoint (outgoing gone before incoming appears); artwork overlaps a little
   const textOpacity = Math.max(0, 1 - 2 * Math.abs(offset));
@@ -96,18 +99,25 @@ function CaseStudyPreview({
             ))}
           </div>
           {/* Figma: cta */}
+          {/* the site's own case study pages open in the same tab; anything external opens a new one */}
           <a
             href={study.href}
+            onClick={(e) => {
+              // studies with a deck open it over the page (the link still works if opened in a new tab)
+              if (!caseStudyDecks[study.id] || e.metaKey || e.ctrlKey || e.shiftKey) return;
+              e.preventDefault();
+              openDeck(study.id);
+            }}
             data-umami-event="case-study-read-more"
             data-umami-event-study={study.id}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group cursor-new-window mt-9 inline-flex flex-col pt-1 text-(--accent)"
+            {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+            className={`group mt-9 inline-flex flex-col pt-1 text-(--accent) ${external ? "cursor-new-window" : ""}`}
           >
             <span className="inline-flex items-center gap-1.5 text-sm leading-[1.6] font-semibold tracking-[0.08em] uppercase">
               Read more
               <span className="sr-only">
-                : {study.title} (opens in a new tab)
+                : {study.title}
+                {external && " (opens in a new tab)"}
               </span>
               <LinkArrow className="size-[0.8em]" />
             </span>

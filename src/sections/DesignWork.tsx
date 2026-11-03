@@ -192,7 +192,7 @@ export default function DesignWork() {
                   <Label>
                     {item.year ? `${item.client} · ${item.year}` : item.client}
                   </Label>
-                  <p className="text-base leading-6 text-light-gray">
+                  <p className="text-base leading-6 text-white">
                     {item.description}
                   </p>
                 </div>

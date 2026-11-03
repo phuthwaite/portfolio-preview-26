@@ -11,6 +11,9 @@ import Profile from "./sections/Profile";
 import DesignWork from "./sections/DesignWork";
 import Experience from "./sections/Experience";
 import Contact from "./sections/Contact";
+import Deck from "./case-study/Deck";
+import { caseStudyDecks } from "./case-study/pages";
+import { useDeckRoute } from "./case-study/deckRoute";
 
 // Figma: Background Gradient TOP — flattened export that already includes the layer's 64% opacity
 // over the page background, so it is shown at full opacity
@@ -29,6 +32,9 @@ function BackgroundGradientTop() {
 export default function App() {
   const stack = useRef<HTMLElement>(null);
   const { active, heroHidden } = useSlideStack(stack);
+  // a case study deck, open over the page when the address is /case-studies/<id>
+  const deckId = useDeckRoute();
+  const deck = deckId ? caseStudyDecks[deckId] : undefined;
   // how far visitors get: each section the first time it's reached
   useEffect(() => {
     if (heroHidden) trackOnce("section-reached", { section: active });
@@ -84,6 +90,7 @@ export default function App() {
         </Slide>
       </main>
       <Dock active={active} visible={heroHidden} />
+      {deck && <Deck key={deck.id} deck={deck} />}
     </div>
   );
 }
