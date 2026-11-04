@@ -1,6 +1,7 @@
 import { useState, type CSSProperties, type MouseEvent, type PointerEvent } from "react";
 import NavTile from "./NavTile";
 import { navItems, type SectionId } from "../data/content";
+import { track } from "../lib/analytics";
 
 // Interactions ported from the macOS project's dock (_site/macos/src/module/desktop/dock):
 // a discrete step-function magnify, so only icons within 2 places of the hovered one
@@ -51,7 +52,7 @@ export default function Dock({
       {/* darkens and blurs the content behind the dock so it stands out; fades in with the dock */}
       <div
         aria-hidden
-        className={`dock-backdrop pointer-events-none fixed inset-x-0 bottom-0 z-40 h-40 lg:h-64 transition-opacity duration-500 ${
+        className={`dock-backdrop pointer-events-none fixed bottom-0 left-0 right-[var(--scrollbar-comp,0px)] z-40 h-40 lg:h-64 transition-opacity duration-500 ${
           visible ? "opacity-100" : "opacity-0"
         }`}
       />
@@ -61,7 +62,7 @@ export default function Dock({
         aria-hidden={!visible}
         inert={!visible}
         // centred by layout (auto margins) rather than a -50% shift, so it always sits on whole pixels
-        className={`fixed inset-x-0 bottom-4 z-50 mx-auto w-fit transition-[translate,opacity] duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${
+        className={`fixed bottom-4 left-0 right-[var(--scrollbar-comp,0px)] z-50 mx-auto w-fit transition-[translate,opacity] duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${
           visible
             ? "translate-none opacity-100"
             : "pointer-events-none translate-y-[calc(100%+24px)] opacity-0"
@@ -87,9 +88,10 @@ export default function Dock({
                 <a
                   href={`#${item.id}`}
                   aria-current={isActive ? "true" : undefined}
-                  data-umami-event="dock-nav-click"
-                  data-umami-event-section={item.id}
-                  onClick={item.id === "top" ? scrollToTop : undefined}
+                  onClick={(e) => {
+                    track("dock-nav-click", { section: item.id });
+                    if (item.id === "top") scrollToTop(e);
+                  }}
                   className="dock-link group"
                 >
                   <span

@@ -3,7 +3,7 @@ import { Label } from "../components/Widget";
 import { CarouselControls } from "../components/CarouselArrows";
 import { FillUnderline, LinkArrow } from "../components/LinkDecor";
 import { recommendationsUrl, testimonials } from "../data/content";
-import { trackOnce } from "../lib/analytics";
+import { track, trackOnce } from "../lib/analytics";
 
 // Profile photos: src/assets/testimonials/<first-last>.(jpg|png|webp), e.g. graeme-bryce.jpg.
 // Anyone without a photo gets their initials instead.
@@ -191,7 +191,7 @@ export default function Testimonials({
         href={recommendationsUrl}
         target="_blank"
         rel="noopener noreferrer"
-        data-umami-event="recommendations-linkedin-click"
+        onClick={() => track("recommendations-linkedin-click")}
         className="group cursor-new-window inline-flex w-fit flex-col gap-1 self-start text-xs font-medium tracking-[0.2em] whitespace-nowrap text-light-gray uppercase"
       >
         <span className="inline-flex items-center gap-1.5">

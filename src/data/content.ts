@@ -699,7 +699,7 @@ export const caseStudies: CaseStudy[] = [
     artAlt:
       "Marketing emails for Volkswagen Group brands including CUPRA, Škoda, VW, Audi and VW Commercial Vehicles",
     accent: "#b3d7dd",
-    href: "#case-studies",
+    href: "/case-studies/vw",
   },
   {
     id: "samsung",
@@ -718,7 +718,9 @@ export const caseStudies: CaseStudy[] = [
       { value: "E2E", label: "Conversion & Redemption Logic" },
     ],
     artAlt: "The Galaxy S21 Boost rewards page on desktop and mobile",
-    accent: "#7178f5",
+    // Samsung blue (#3300FF) is too dark to read on the page, so text uses a lighter colour with the hue of
+    // the deck's glow (#3300FF over #122A61, about 243°): 5.4:1 on the page
+    accent: "#7B78FF",
     href: "/case-studies/samsung",
   },
   {
@@ -729,7 +731,9 @@ export const caseStudies: CaseStudy[] = [
     logoWidth: 64,
     logoHeight: 27.71,
     company: "AXS Europe - Live Event Ticketing",
-    summary: placeholderSummary,
+    summary: [
+      "A modular, multi-brand redesign of the order confirmation and e-ticket emails AXS sends after every purchase. Text-heavy, barely branded emails became clearly structured sections for event, ticket, order and venue details, in one template reskinned for venues, promoters and events. Built in XSLT across two back-end systems, the suite grew to cover season tickets, upgrades, Swedish localisation and more.",
+    ],
     stats: [
       { value: "97%", label: "open rate" },
       {
@@ -739,8 +743,9 @@ export const caseStudies: CaseStudy[] = [
     ],
     artAlt:
       "Printed and folded AXS e-tickets for a Wasps v Harlequins rugby match",
-    accent: "#3397ff",
-    href: "#case-studies",
+    // AXS blue (#007DFF), lightened slightly for legibility on the page
+    accent: "#2E93FF",
+    href: "/case-studies/axs",
   },
   {
     id: "twc",
@@ -763,6 +768,6 @@ export const caseStudies: CaseStudy[] = [
     ],
     artAlt: "The White Company product page on desktop and mobile",
     accent: "#dddddd",
-    href: "#case-studies",
+    href: "/case-studies/twc",
   },
 ];

@@ -47,14 +47,24 @@ export default function Deck({ deck }: { deck: DeckDef }) {
   // back doesn't move it), title and focus
   useEffect(() => {
     const root = document.documentElement;
-    const before = { overflow: root.style.overflow, restoration: history.scrollRestoration, title: document.title };
+    const before = { overflow: root.style.overflow, padding: root.style.paddingRight, restoration: history.scrollRestoration, title: document.title };
     const scroll = { x: window.scrollX, y: window.scrollY };
     const d = dialog.current!;
     if (!d.open) d.showModal();
     history.scrollRestoration = "manual";
+    // stop the page scrolling, making up the space its scrollbar took (if it has one) so nothing shifts
+    // sideways: padding for the page, --scrollbar-comp for fixed elements (the dock). (scrollbar-gutter
+    // would be neater, but browsers don't all honour it on the page itself.)
+    const scrollbar = window.innerWidth - root.clientWidth;
+    if (scrollbar > 0) {
+      root.style.paddingRight = `${scrollbar}px`;
+      root.style.setProperty("--scrollbar-comp", `${scrollbar}px`);
+    }
     root.style.overflow = "hidden";
     return () => {
       root.style.overflow = before.overflow;
+      root.style.paddingRight = before.padding;
+      root.style.removeProperty("--scrollbar-comp");
       document.title = before.title;
       window.scrollTo({ left: scroll.x, top: scroll.y, behavior: "instant" });
       opener?.focus({ preventScroll: true });
@@ -106,7 +116,7 @@ export default function Deck({ deck }: { deck: DeckDef }) {
         close();
       }}
       onKeyDown={onKeyDown}
-      className={`m-auto h-[calc(100dvh-24px)] max-h-none w-[calc(100dvw-24px)] max-w-none overflow-hidden rounded-2xl border border-white/10 bg-[#050914] p-0 text-white shadow-[0_24px_80px_rgb(0_0_0/0.6)] transition-[opacity,scale,translate] ease-out backdrop:bg-[#030714]/65 backdrop:backdrop-blur-[3px] backdrop:transition-opacity backdrop:ease-out motion-reduce:transition-none motion-reduce:backdrop:transition-none starting:translate-y-6 starting:scale-[0.97] starting:opacity-0 starting:backdrop:opacity-0 lg:h-[min(calc(100dvh-64px),calc((100dvw-64px)*9/16))] lg:w-[min(calc(100dvw-64px),calc((100dvh-64px)*16/9))] ${
+      className={`m-auto h-[calc(100dvh-24px)] max-h-none w-[calc(100dvw-24px)] max-w-none overflow-hidden rounded-2xl bg-[#050914] p-0 text-white shadow-[0_24px_80px_rgb(0_0_0/0.6)] transition-[opacity,scale,translate] ease-out backdrop:bg-[#030714]/65 backdrop:backdrop-blur-[3px] backdrop:transition-opacity backdrop:ease-out motion-reduce:transition-none motion-reduce:backdrop:transition-none starting:translate-y-6 starting:scale-[0.97] starting:opacity-0 starting:backdrop:opacity-0 lg:h-[min(calc(100dvh-64px),calc((100dvw-64px)*9/16))] lg:w-[min(calc(100dvw-64px),calc((100dvh-64px)*16/9))] ${
         closing
           ? "translate-y-3 scale-[0.98] opacity-0 duration-200 backdrop:opacity-0 backdrop:duration-200"
           : "duration-500 backdrop:duration-500"
@@ -146,6 +156,9 @@ export default function Deck({ deck }: { deck: DeckDef }) {
           );
         })}
       </div>
+
+      {/* keyline round the panel, drawn over the slide's edge (like the design carousel's image frames) */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-30 rounded-[inherit] border border-white/15" />
 
       {/* close, top right */}
       <button

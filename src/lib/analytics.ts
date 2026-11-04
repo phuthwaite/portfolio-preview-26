@@ -1,6 +1,8 @@
 // Umami analytics (cookieless; the script is loaded in index.html and only reports on the domains
-// listed there, so local development isn't counted). Clicks on links and buttons are tracked with
-// `data-umami-event` attributes; this helper is for events that aren't clicks.
+// listed there, so local development isn't counted). Buttons can be tracked with `data-umami-event`
+// attributes, but links call track() from their onClick instead: for a tagged link, Umami cancels the click
+// and navigates to the href itself, which bypasses the page's own handling (smooth section scrolling,
+// opening a case study deck over the page).
 type EventData = Record<string, string | number>;
 
 declare global {

@@ -1,6 +1,7 @@
 import audioPng from "../assets/audio.png";
 import portraitPng from "../assets/portrait-ph.png";
 import heroGlowSvg from "../assets/hero-glow.svg";
+import { track } from "../lib/analytics";
 import heroLineSvg from "../assets/hero-line-stroke.svg";
 import NavTile from "../components/NavTile";
 import NameLockup from "../components/NameLockup";
@@ -61,8 +62,7 @@ function Nav() {
         <a
           key={item.id}
           href={`#${item.id}`}
-          data-umami-event="hero-nav-click"
-          data-umami-event-section={item.id}
+          onClick={() => track("hero-nav-click", { section: item.id })}
           className="group flex flex-col items-center gap-[10px] lg:gap-[9px]"
         >
           {/* row keeps the height of the (larger) active tile so the layout doesn't shift */}

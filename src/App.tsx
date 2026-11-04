@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { trackOnce } from "./lib/analytics";
+import { track, trackOnce } from "./lib/analytics";
 import bgTop from "./assets/bg-top.png";
 import Hero from "./sections/Hero";
 import Dock from "./components/Dock";
@@ -54,7 +54,7 @@ export default function App() {
           <a
             href="#case-studies"
             aria-label="Scroll to case studies"
-            data-umami-event="scroll-cue-click"
+            onClick={() => track("scroll-cue-click")}
             className="absolute bottom-5 left-1/2 hidden -translate-x-1/2 rounded-full p-2 text-white/70 transition-colors hover:text-white tall:block"
           >
             <svg

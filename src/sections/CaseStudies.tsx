@@ -14,7 +14,7 @@ import { caseStudyArt } from "./case-study-art";
 import { CarouselControls } from "../components/CarouselArrows";
 import { caseStudies, type CaseStudy } from "../data/content";
 import { progressOf, useMomentumSlider } from "../hooks/useMomentumSlider";
-import { trackOnce } from "../lib/analytics";
+import { track, trackOnce } from "../lib/analytics";
 import { useEdgeNav } from "../hooks/useEdgeNav";
 import { caseStudyDecks } from "../case-study/pages";
 import { openDeck } from "../case-study/deckRoute";
@@ -103,13 +103,12 @@ function CaseStudyPreview({
           <a
             href={study.href}
             onClick={(e) => {
+              track("case-study-read-more", { study: study.id });
               // studies with a deck open it over the page (the link still works if opened in a new tab)
               if (!caseStudyDecks[study.id] || e.metaKey || e.ctrlKey || e.shiftKey) return;
               e.preventDefault();
               openDeck(study.id);
             }}
-            data-umami-event="case-study-read-more"
-            data-umami-event-study={study.id}
             {...(external && { target: "_blank", rel: "noopener noreferrer" })}
             className={`group mt-9 inline-flex flex-col pt-1 text-(--accent) ${external ? "cursor-new-window" : ""}`}
           >

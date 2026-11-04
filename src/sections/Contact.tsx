@@ -1,6 +1,7 @@
 import SectionHeading from "../components/SectionHeading";
 import { Label } from "../components/Widget";
 import { FillUnderline, LinkArrow } from "../components/LinkDecor";
+import { track } from "../lib/analytics";
 import { contact } from "../data/content";
 import Testimonials from "./Testimonials";
 
@@ -24,8 +25,7 @@ export default function Contact() {
                   <Label>{item.label}</Label>
                   <a
                     href={item.href}
-                    data-umami-event="contact-click"
-                    data-umami-event-link={item.label}
+                    onClick={() => track("contact-click", { link: item.label })}
                     {...(external && {
                       target: "_blank",
                       rel: "noopener noreferrer",
